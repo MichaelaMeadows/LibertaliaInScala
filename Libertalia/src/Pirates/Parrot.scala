@@ -1,5 +1,5 @@
 package Pirates
 
-class Parrot {
-  // This is the lowest rank pirate... need to implement parent stuff
+class Parrot extends Pirate {
+  val rank:Int = 1;
 }
