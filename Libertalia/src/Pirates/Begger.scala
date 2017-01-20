@@ -3,9 +3,13 @@ package Pirates
 import Driver.GameState
 import Entities.Player
 
-class Parrot(minorRank:Int) extends Pirate(1, minorRank) {
-    /*
-   * Swap with another pirate in hand
+/*
+ * Rank 3 class
+ */
+class Begger(minorRank:Int) extends Pirate(3, minorRank) {
+  
+  /*
+   * Steal money from the most powerful pirate played
    */
    def dayActivity(state: GameState, owningPlayer: Player) {
      
@@ -16,4 +20,5 @@ class Parrot(minorRank:Int) extends Pirate(1, minorRank) {
    def endOfVoyageActivity(state: GameState, owningPlayer: Player) {
      return;
    }
+  
 }
