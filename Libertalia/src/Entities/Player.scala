@@ -1,6 +1,7 @@
 package Entities
 import Pirates.Pirate;
 import Driver.GameState;
+import Treasure.Treasure
 
 abstract class Player(playerNumber:Int) {
   

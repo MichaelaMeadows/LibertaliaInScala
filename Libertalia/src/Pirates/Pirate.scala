@@ -6,8 +6,8 @@ import Entities.Player
 /*
  * This defines all of the things that a good pirate must be able to do.
  */
-
-abstract class Pirate(val majorRank:Int, val minorRank:Int) extends Ordered[Pirate] {
+// It feels super stupid to have owningPlayer as a value here :(
+abstract class Pirate(val majorRank:Int, val minorRank:Int, val owningPlayer:Int) extends Ordered[Pirate] {
   
   def dayActivity(state: GameState, owningPlayer: Player)
   def nightActivity(state: GameState, owningPlayer: Player)

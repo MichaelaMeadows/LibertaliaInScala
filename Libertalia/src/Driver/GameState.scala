@@ -1,7 +1,7 @@
 package Driver
 
 import Entities.Player;
-import Entities.Treasure;
+import Treasure.Treasure;
 import Pirates.Pirate;
 
 class GameState {
@@ -10,6 +10,7 @@ class GameState {
   var players:List[Player] = List();
   var treasure:Array[List[Treasure]] = Array.ofDim[List[Treasure]](6);
   var cardsInPlay:List[Pirate] = List();
+
   
   def getCardsInOrder:List[Pirate] = {
     var cards:List[Pirate] = List();

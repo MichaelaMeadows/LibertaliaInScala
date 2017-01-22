@@ -3,7 +3,7 @@ package Pirates
 import Driver.GameState
 import Entities.Player
 
-class Parrot(minorRank:Int) extends Pirate(1, minorRank) {
+class Parrot(minorRank:Int, owningPlayer:Int) extends Pirate(1, minorRank, owningPlayer) {
     /*
    * Swap with another pirate in hand
    */
