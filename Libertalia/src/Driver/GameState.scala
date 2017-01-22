@@ -9,6 +9,7 @@ class GameState {
   // Ordering is important for cards that interact with players adjacent to you.
   var players:List[Player] = List();
   var treasure:Array[List[Treasure]] = Array.ofDim[List[Treasure]](6);
+  // Once populated, this is assumed to be ordered... should use a structure to enforce that, haha.
   var cardsInPlay:List[Pirate] = List();
 
   
