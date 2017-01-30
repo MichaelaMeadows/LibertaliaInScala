@@ -15,7 +15,7 @@ class GameState {
   
   def getCardsInOrder:List[Pirate] = {
     var cards:List[Pirate] = List();
-    this.players.foreach((p:Player) => cards:+p.playCard());
+    this.players.foreach((p:Player) => cards:+p.playCard(this));
     return cards.sorted;
   }
   

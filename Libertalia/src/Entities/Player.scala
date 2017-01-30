@@ -1,13 +1,19 @@
 package Entities
+import scala.collection.mutable.ListBuffer;
 import Pirates.Pirate;
 import Driver.GameState;
+import Pirates.PirateState._;
 import Treasure.Treasure;
 
-abstract class Player(playerNumber:Int) {
+abstract class Player(playerNumber:Int, isActivePlayer:Boolean) {
   
+  /*
+   * I think these should just be generated on the fly. Might be slower... but not in a way that should matter;
   var hand:List[Pirate] = List();
   var den:List[Pirate] = List();
   var discard:List[Pirate] = List();
+   */
+  var personalDeck = new Array[Pirate](30);
   var loot:List[Treasure] = List();
   var totalScore:Int = 0;
   var currentLoot:Int = 0;
@@ -16,28 +22,26 @@ abstract class Player(playerNumber:Int) {
    * There are some number of methods required to interact with players
    */
   def addCardToHand(pirate:Pirate) {
-    this.hand = hand:+ pirate;
+    this.personalDeck(pirate.getMajorRank()).state = HAND;
   }
-
-  def setCurrentLoot(loot:Int) {
-    this.currentLoot = loot;
-  }
-
-  def setTotalScore(loot:Int) {
-    this.totalScore = loot;
+  
+  def getCardsInState(state:Value):List[Int] = {
+    val buf = new ListBuffer[Int]  ;
+    personalDeck.foreach((p:Pirate) => buf+=p.majorRank);
+    return buf.toList;
   }
 
   def endOfVoyage(state:GameState) {
-    this.den.foreach((p:Pirate) => p.endOfVoyageActivity(state, this))
+    this.getCardsInState(DEN).foreach((p:Int) => this.personalDeck(p).endOfVoyageActivity(state, this))
   }
 
   def nightActivity(state:GameState) {
-    this.den.foreach((p:Pirate) => p.nightActivity(state, this))
+    this.getCardsInState(DEN).foreach((p:Int) => this.personalDeck(p).nightActivity(state, this))
   }
 
   // Various AI strategies need to extend this class and fill out what this method should do I guess.
   // Humans should just ping for input from the player.
-  def playCard():Pirate
+  def playCard(state:GameState):Pirate
   
   // Generic method to solicit a choice from a player / AI
   // Takes a prompt and expects an int response
