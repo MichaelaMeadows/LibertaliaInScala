@@ -24,9 +24,45 @@ abstract class Player(playerNumber:Int, isActivePlayer:Boolean) {
    * Right now... just making the worst game ever
    */
   def innitDeck() {
+    // If I haven't made it yet, it's a beggar. Worst game ever. Literally unplayable.
     for (i <- 0 to 29) {
       personalDeck(i) = new Begger(playerNumber);
     }
+    // Commented out lines mean I haven't made that pirate yet!
+    innitPirate(new Parrot(playerNumber));
+    //innitPirate(new Monkey(playerNumber));
+    innitPirate(new Begger(playerNumber));
+    innitPirate(new Recruiter(playerNumber));
+    //innitPirate(new CabinBoy(playerNumber));
+    //innitPirate(new Preacher(playerNumber));
+    innitPirate(new Barkeep(playerNumber)); 
+   // innitPirate(new Waitress(playerNumber));
+    innitPirate(new Carpenter(playerNumber));
+    //innitPirate(new FrenchOfficer(playerNumber));
+    //innitPirate(new VoodooWitch(playerNumber));
+    //innitPirate(new FreedSlave(playerNumber));
+    //innitPirate(new Mutineer(playerNumber));
+    //innitPirate(new Brute(playerNumber));
+    //innitPirate(new Gunner(playerNumber));
+    //innitPirate(new Topman(playerNumber));
+    //innitPirate(new SpanishSpy(playerNumber));
+    //innitPirate(new Cook(playerNumber));
+    //innitPirate(new Bosun(playerNumber));
+    //innitPirate(new Armorer(playerNumber));
+    //innitPirate(new Merchant(playerNumber));
+    //innitPirate(new Surgeon(playerNumber));
+    //innitPirate(new Treasurer(playerNumber));
+    innitPirate(new Gambler(playerNumber));
+    //innitPirate(new GovernorsDaughter(playerNumber));
+    //innitPirate(new QuarterMaster(playerNumber));
+    //innitPirate(new GrannyWata(playerNumber));
+    //innitPirate(new FirstMate(playerNumber));
+    //innitPirate(new Captain(playerNumber));
+    //innitPirate(new SpanishGovernor(playerNumber));
+  }
+  
+  def innitPirate(pirate:Pirate) {
+    personalDeck(pirate.majorRank - 1) = pirate;
   }
   
   // This controls access to the personal deck, and shift to account for 0 indexing
