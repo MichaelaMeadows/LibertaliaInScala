@@ -5,9 +5,9 @@ import Entities.Player
 import Pirates.PirateState._;
 
 /*
- * Rank 4 class
+ * Rank 24 class
  */
-class Gambler(minorRank:Int, owningPlayer:Int) extends Pirate(4, minorRank, owningPlayer) {
+class Gambler(minorRank:Int, owningPlayer:Int) extends Pirate(24, minorRank, owningPlayer) {
   
   /*
    * Lose 1 doubloon for each piece of booty

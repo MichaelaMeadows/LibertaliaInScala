@@ -8,7 +8,6 @@ import Pirates.PirateState._;
  * Rank 4 class
  */
 class Barkeep(minorRank:Int, owningPlayer:Int) extends Pirate(4, minorRank, owningPlayer) {
-  
 
    def dayActivity(state: GameState, owningPlayer: Player) {
      return
