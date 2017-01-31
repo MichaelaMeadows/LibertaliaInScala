@@ -15,7 +15,7 @@ class RandomPlayer(playerNumber:Int, isActivePlayer:Boolean) extends Player (pla
     return choice;
   }
   
-  def makeDecision(decisionPrompt:String):Int = {
+  def makeDecision(state:GameState, possibleChoices:List[Int], decisionPrompt:String):Int = {
     return 1;
   }
   

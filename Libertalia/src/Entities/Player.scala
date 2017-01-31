@@ -14,7 +14,7 @@ abstract class Player(playerNumber:Int, isActivePlayer:Boolean) {
   var discard:List[Pirate] = List();
    */
   var personalDeck = new Array[Pirate](30);
-  var loot:List[Treasure] = List();
+  var treasure:List[Treasure] = List();
   var totalScore:Int = 0;
   var currentLoot:Int = 0;
   
@@ -45,6 +45,6 @@ abstract class Player(playerNumber:Int, isActivePlayer:Boolean) {
   
   // Generic method to solicit a choice from a player / AI
   // Takes a prompt and expects an int response
-  def makeDecision(decisionPrompt:String):Int
+  def makeDecision(state:GameState, possibleChoices:List[Int], decisionPrompt:String):Int
   
 }
