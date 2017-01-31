@@ -27,9 +27,9 @@ abstract class Pirate(val majorRank:Int, val owningPlayer:Int) extends Ordered[P
    * 4 Out of play (discarded and then removed from play at end of voyage)
    */
   
-  def dayActivity(state: GameState, owningPlayer: Player)
-  def nightActivity(state: GameState, owningPlayer: Player)
-  def endOfVoyageActivity(state: GameState, owningPlayer: Player)
+  def dayActivity(state: GameState)
+  def nightActivity(state: GameState)
+  def endOfVoyageActivity(state: GameState)
   
   // 0 Isn't possible... unless we have a bug
   def compare(that: Pirate):Int = {

@@ -1,6 +1,7 @@
 package Driver
 
 import Entities.Player;
+import scala.collection.mutable.ListBuffer;
 import Treasure.Treasure;
 import Pirates.Pirate;
 
@@ -20,6 +21,9 @@ class GameState {
      * Execute night time
      * Return
      */
+    var cardsToPlay = getCardsInOrder();
+    
+    cardsToPlay.foreach(f => f.dayActivity(this))
     
   }
   
@@ -31,10 +35,10 @@ class GameState {
   }
   
   
-  def getCardsInOrder:List[Pirate] = {
-    var cards:List[Pirate] = List();
-    this.players.foreach((p:Player) => cards:+p.playCard(this));
-    return cards.sorted;
+  def getCardsInOrder():List[Pirate] = {
+    val cards = new ListBuffer[Pirate];
+    this.players.foreach((p:Player) => cards+=p.playCard(this));
+    return cards.toList;
   }
   
   def getAdjacentPlayers(playerPosition:Int):List[Player] = {

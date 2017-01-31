@@ -24,7 +24,9 @@ import scala.util.Random
     
     // Three rounds of six turns I believe
     for (round <- 0 to roundCount) {
+      System.out.println("Round: " + round);
       for (turn <- 0 to turnCount) {
+        System.out.println("Turn: " + turn);
         gameState.nextTurn();
       }
       gameState.endOfVoyage();
