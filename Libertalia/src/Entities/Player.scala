@@ -19,6 +19,13 @@ abstract class Player(playerNumber:Int, isActivePlayer:Boolean) {
   var currentLoot:Int = 0;
   
   /*
+   * Fill the personal deck with cards not in play, and with the correct minor version
+   */
+  def innitDeck() {
+    
+  }
+  
+  /*
    * There are some number of methods required to interact with players
    */
   def addCardToHand(pirate:Pirate) {

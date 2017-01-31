@@ -13,6 +13,23 @@ class GameState {
   // TODO Players shouldn't be able to read this... I'll just leave it be for now though.
   var cardsInPlay:List[Pirate] = List();
 
+  def nextTurn() {
+    /*
+     * Solicit cards from players
+     * Order cards and execute daytime
+     * Execute night time
+     * Return
+     */
+    
+  }
+  
+  def endOfVoyage() {
+    /*
+     * Perform end of voyage activities.
+     * Return after updating final scored.
+     */
+  }
+  
   
   def getCardsInOrder:List[Pirate] = {
     var cards:List[Pirate] = List();

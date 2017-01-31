@@ -19,7 +19,7 @@ class Gambler(minorRank:Int, owningPlayer:Int) extends Pirate(24, minorRank, own
    def nightActivity(state: GameState, owningPlayer: Player) {
      return;
    }
-   
+
    /*
     * Gain 8 doubloons at the end of the trip
     */
