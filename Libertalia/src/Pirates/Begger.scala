@@ -15,12 +15,11 @@ class Begger(owningPlayer:Int) extends Pirate(3, owningPlayer) {
    */
    def dayActivity(state: GameState) {
      // Steals the smaller value between 3 and the money the enemy has.
-     var targetPlayer:Player = state.players(state.cardsInPlay(0).owningPlayer);
+     var targetPlayer:Player = state.getPlayerByNumber(state.cardsInPlay(0).owningPlayer);
      val moneyStolen:Int = Math.min(targetPlayer.currentLoot, 3)
      targetPlayer.currentLoot -= moneyStolen;
-     state.players(owningPlayer).currentLoot += moneyStolen; 
-     System.out.println("?????");
-     System.out.println("Player {} now has {} money", owningPlayer, state.players(owningPlayer).currentLoot);
+     state.getPlayerByNumber(owningPlayer).currentLoot += moneyStolen; 
+     System.out.println("Player: " + owningPlayer + "Has money: " + state.getPlayerByNumber(owningPlayer).currentLoot);
    }
    
    def nightActivity(state: GameState) {

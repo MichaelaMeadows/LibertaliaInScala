@@ -14,7 +14,7 @@ abstract class Pirate(val majorRank:Int, val owningPlayer:Int) extends Ordered[P
   
   // Pirates must implement their own mapping from player -> minorRank
   def getMinorRank():Int = {
-    return rankOrdering(owningPlayer);
+    return rankOrdering(owningPlayer - 1);
   }
   
   // Pirate is out of play by default

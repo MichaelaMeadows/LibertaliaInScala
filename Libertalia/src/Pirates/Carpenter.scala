@@ -12,7 +12,7 @@ class Carpenter(owningPlayer:Int) extends Pirate(9, owningPlayer) {
    */
    def dayActivity(state: GameState) {
      // I think it's rounded up in the game? May need to change this for off by 1.
-       state.players(owningPlayer).currentLoot = (state.players(owningPlayer).currentLoot / 2);
+       state.getPlayerByNumber(owningPlayer).currentLoot = (state.getPlayerByNumber(owningPlayer).currentLoot / 2);
    }
    // Does nothing
    def nightActivity(state: GameState) {
@@ -20,7 +20,7 @@ class Carpenter(owningPlayer:Int) extends Pirate(9, owningPlayer) {
    }
    // Gain 10 doubloons
    def endOfVoyageActivity(state: GameState) {
-     state.players(owningPlayer).currentLoot = state.players(owningPlayer).currentLoot + 10;
+     state.getPlayerByNumber(owningPlayer).currentLoot = state.getPlayerByNumber(owningPlayer).currentLoot + 10;
    }
   
 }

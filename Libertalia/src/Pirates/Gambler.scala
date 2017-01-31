@@ -14,7 +14,7 @@ class Gambler(owningPlayer:Int) extends Pirate(24, owningPlayer) {
    * Lose 1 doubloon for each piece of booty
    */
    def dayActivity(state: GameState) {
-     state.players(owningPlayer).currentLoot -= state.players(owningPlayer).treasure.size;
+     state.getPlayerByNumber(owningPlayer).currentLoot -= state.getPlayerByNumber(owningPlayer).treasure.size;
    }
 
    def nightActivity(state: GameState) {
@@ -25,7 +25,7 @@ class Gambler(owningPlayer:Int) extends Pirate(24, owningPlayer) {
     * Gain 8 doubloons at the end of the trip
     */
    def endOfVoyageActivity(state: GameState) {
-     state.players(owningPlayer).currentLoot += 8;
+     state.getPlayerByNumber(owningPlayer).currentLoot += 8;
    }
   
 }

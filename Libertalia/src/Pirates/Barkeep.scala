@@ -19,7 +19,7 @@ class Barkeep(owningPlayer:Int) extends Pirate(4, owningPlayer) {
     * Earn a doubloon every night
     */
    def nightActivity(state: GameState) {
-     state.players(owningPlayer).currentLoot += 1
+     state.getPlayerByNumber(owningPlayer).currentLoot += 1
    }
    
    def endOfVoyageActivity(state: GameState) {

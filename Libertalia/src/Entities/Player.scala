@@ -17,7 +17,7 @@ abstract class Player(playerNumber:Int, isActivePlayer:Boolean) {
   private var personalDeck = new Array[Pirate](30);
   var treasure:List[Treasure] = List();
   var totalScore:Int = 0;
-  var currentLoot:Int = 0;
+  var currentLoot:Int = 10;
   
   /*
    * Fill the personal deck with cards not in play, and with the correct minor version
