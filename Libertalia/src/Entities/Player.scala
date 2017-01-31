@@ -37,22 +37,25 @@ abstract class Player(playerNumber:Int, isActivePlayer:Boolean) {
   def addCardsToHand(cardsToAdd:List[Int]) {
     //cardsToAdd.foreach(card => addCardToHand(personalDeck(card)));
     // Hard coding garbage for now to test
-    addCardToHand(personalDeck(3));
+    // 2 is actually the begger (3 - 1)
+    addCardToHand(personalDeck(3 - 1));
   }
   
   /*
    * There are some number of methods required to interact with players
    */
   def addCardToHand(pirate:Pirate) {
-    this.personalDeck(pirate.majorRank).state = HAND;
+    this.personalDeck(pirate.majorRank - 1).state = HAND;
   }
   
   def getCardsInState(state:Value):List[Int] = {
     val buf = new ListBuffer[Int];
+    var position = 0;
     personalDeck.foreach((p:Pirate) => {
       if(p.state == state) {
             buf+=p.majorRank
         }
+      position +=1;
       }
     );
     return buf.toList;
@@ -72,6 +75,7 @@ abstract class Player(playerNumber:Int, isActivePlayer:Boolean) {
   
   // Generic method to solicit a choice from a player / AI
   // Takes a prompt and expects an int response
+  // Might want to also take in DECISION_TYPE or something to add minimal intelligence
   def makeDecision(state:GameState, possibleChoices:List[Int], decisionPrompt:String):Int
   
 }
