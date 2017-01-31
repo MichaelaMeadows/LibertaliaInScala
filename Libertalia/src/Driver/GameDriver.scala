@@ -16,15 +16,14 @@ import scala.util.Random
       player.innitDeck();
       // Each player stars with the same 9 cards
       player.addCardsToHand(playDeck.slice(0, sliceStop));
-      gameState.players = gameState.players:+ player;
+      gameState.addPlayer(player);
     }
-    
-    
-    
-    
+
     // Three rounds of six turns I believe
     for (round <- 0 to roundCount) {
+      System.out.println("Round: " + round);
       for (turn <- 0 to turnCount) {
+        System.out.println("Turn: " + turn);
         gameState.nextTurn();
       }
       gameState.endOfVoyage();

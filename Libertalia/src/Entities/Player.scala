@@ -2,6 +2,7 @@ package Entities
 import scala.collection.mutable.ListBuffer;
 import Pirates.Pirate;
 import Driver.GameState;
+import Pirates._;
 import Pirates.PirateState._;
 import Treasure.Treasure;
 
@@ -13,16 +14,24 @@ abstract class Player(playerNumber:Int, isActivePlayer:Boolean) {
   var den:List[Pirate] = List();
   var discard:List[Pirate] = List();
    */
-  var personalDeck = new Array[Pirate](30);
+  private var personalDeck = new Array[Pirate](30);
   var treasure:List[Treasure] = List();
   var totalScore:Int = 0;
-  var currentLoot:Int = 0;
+  var currentLoot:Int = 10;
   
   /*
    * Fill the personal deck with cards not in play, and with the correct minor version
+   * Right now... just making the worst game ever
    */
   def innitDeck() {
-    
+    for (i <- 0 to 29) {
+      personalDeck(i) = new Begger(playerNumber);
+    }
+  }
+  
+  // This controls access to the personal deck, and shift to account for 0 indexing
+  def getPirateFromDeck(majorRank:Int):Pirate = {
+    return personalDeck(majorRank - 1);
   }
   
   def addCardsToHand(cardsToAdd:List[Int]) {
@@ -39,17 +48,22 @@ abstract class Player(playerNumber:Int, isActivePlayer:Boolean) {
   }
   
   def getCardsInState(state:Value):List[Int] = {
-    val buf = new ListBuffer[Int]  ;
-    personalDeck.foreach((p:Pirate) => buf+=p.majorRank);
+    val buf = new ListBuffer[Int];
+    personalDeck.foreach((p:Pirate) => {
+      if(p.state == state) {
+            buf+=p.majorRank
+        }
+      }
+    );
     return buf.toList;
   }
 
   def endOfVoyage(state:GameState) {
-    this.getCardsInState(DEN).foreach((p:Int) => this.personalDeck(p).endOfVoyageActivity(state, this))
+    this.getCardsInState(DEN).foreach((p:Int) => this.personalDeck(p).endOfVoyageActivity(state))
   }
 
   def nightActivity(state:GameState) {
-    this.getCardsInState(DEN).foreach((p:Int) => this.personalDeck(p).nightActivity(state, this))
+    this.getCardsInState(DEN).foreach((p:Int) => this.personalDeck(p).nightActivity(state))
   }
 
   // Various AI strategies need to extend this class and fill out what this method should do I guess.

@@ -1,13 +1,14 @@
 package Driver
 
 import Entities.Player;
+import scala.collection.mutable.ListBuffer;
 import Treasure.Treasure;
 import Pirates.Pirate;
 
 class GameState {
   
   // Ordering is important for cards that interact with players adjacent to you.
-  var players:List[Player] = List();
+  private var players:List[Player] = List();
   var treasure:Array[List[Treasure]] = Array.ofDim[List[Treasure]](6);
   // Once populated, this is assumed to be ordered... should use a structure to enforce that, haha.
   // TODO Players shouldn't be able to read this... I'll just leave it be for now though.
@@ -20,7 +21,8 @@ class GameState {
      * Execute night time
      * Return
      */
-    
+    cardsInPlay = getCardsInOrder();
+    cardsInPlay.foreach(f => f.dayActivity(this))
   }
   
   def endOfVoyage() {
@@ -31,10 +33,18 @@ class GameState {
   }
   
   
-  def getCardsInOrder:List[Pirate] = {
-    var cards:List[Pirate] = List();
-    this.players.foreach((p:Player) => cards:+p.playCard(this));
-    return cards.sorted;
+  def getCardsInOrder():List[Pirate] = {
+    val cards = new ListBuffer[Pirate];
+    this.players.foreach((p:Player) => cards+=p.playCard(this));
+    return cards.toList.sorted;
+  }
+  
+  def addPlayer(player:Player) = {
+    players = players:+ player;
+  }
+  
+  def getPlayerByNumber(playerNumber:Int):Player = {
+    return players(playerNumber - 1);
   }
   
   def getAdjacentPlayers(playerPosition:Int):List[Player] = {
