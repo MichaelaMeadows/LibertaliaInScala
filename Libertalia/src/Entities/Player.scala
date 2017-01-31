@@ -25,6 +25,12 @@ abstract class Player(playerNumber:Int, isActivePlayer:Boolean) {
     
   }
   
+  def addCardsToHand(cardsToAdd:List[Int]) {
+    //cardsToAdd.foreach(card => addCardToHand(personalDeck(card)));
+    // Hard coding garbage for now to test
+    addCardToHand(personalDeck(3));
+  }
+  
   /*
    * There are some number of methods required to interact with players
    */

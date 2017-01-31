@@ -6,21 +6,16 @@ import scala.util.Random
     val playerCount: Int = 6;// Hard coding this for now args(0).toInt;
     val roundCount:Int = 3;
     val turnCount:Int = 6;
-    var playDeck:Array[Int] = Array[Int](30);
-    System.out.println(playerCount);
-    
-
-    for (pirateNum <- 1 to 30) {
-      playDeck(pirateNum) = pirateNum;
-      // Use this for pirate selection
-      var randomizedDeck = Random.shuffle(playDeck.toSeq);
-    }
-    
+    var playDeck:List[Int] = (1 to 30).toList
+    var sliceStop = 9;
+    playDeck = Random.shuffle(playDeck);  
     
     var gameState:GameState = new GameState;
     for(playerNum <- 1 to playerCount) {
       var player = new RandomPlayer(playerNum, true);
       player.innitDeck();
+      // Each player stars with the same 9 cards
+      player.addCardsToHand(playDeck.slice(0, sliceStop));
       gameState.players = gameState.players:+ player;
     }
     
@@ -33,6 +28,10 @@ import scala.util.Random
         gameState.nextTurn();
       }
       gameState.endOfVoyage();
+      // Once we ready to keep adding more cards, basically do this.
+     // var temp = sliceStop + 6;
+     // player.addCardsToHand(playDeck.slice(sliceStop, temp));
+     // sliceStop = temp;
     }
     // Order players by final score and we're done!
   }
