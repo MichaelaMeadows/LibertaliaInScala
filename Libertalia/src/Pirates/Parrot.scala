@@ -3,7 +3,10 @@ package Pirates
 import Driver.GameState
 import Entities.Player
 
-class Parrot(minorRank:Int, owningPlayer:Int) extends Pirate(1, minorRank, owningPlayer) {
+class Parrot(owningPlayer:Int) extends Pirate(1, owningPlayer) {
+  
+   val rankOrdering:List[Int] = List(1,2,3,4,5,6);
+
     /*
    * Swap with another pirate in hand
    */

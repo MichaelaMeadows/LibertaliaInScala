@@ -7,8 +7,9 @@ import Pirates.PirateState._;
 /*
  * Rank 4 class
  */
-class Recruiter(minorRank:Int, owningPlayer:Int) extends Pirate(4, minorRank, owningPlayer) {
+class Recruiter(owningPlayer:Int) extends Pirate(4, owningPlayer) {
   
+  val rankOrdering:List[Int] = List(4,5,6,1,2,3);
   /*
    * Take a card from your den and place it into your hand
    */

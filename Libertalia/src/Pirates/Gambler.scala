@@ -7,8 +7,9 @@ import Pirates.PirateState._;
 /*
  * Rank 24 class
  */
-class Gambler(minorRank:Int, owningPlayer:Int) extends Pirate(24, minorRank, owningPlayer) {
+class Gambler(owningPlayer:Int) extends Pirate(24, owningPlayer) {
   
+   val rankOrdering:List[Int] = List(3,4,5,6,1,2);
   /*
    * Lose 1 doubloon for each piece of booty
    */

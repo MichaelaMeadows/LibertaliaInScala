@@ -3,7 +3,9 @@ import Driver.GameState
 import Entities.Player
 
 // This is the rank 9 class
-class Carpenter(minorRank:Int, owningPlayer:Int) extends Pirate(9, minorRank, owningPlayer) {
+class Carpenter(owningPlayer:Int) extends Pirate(9, owningPlayer) {
+  
+  val rankOrdering:List[Int] = List(2,3,4,5,6,1);
   
    /*
    * Lose 50% of doubloons

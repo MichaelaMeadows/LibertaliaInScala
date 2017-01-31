@@ -6,7 +6,9 @@ import Entities.Player
 /*
  * Rank 3 class
  */
-class Begger(minorRank:Int, owningPlayer:Int) extends Pirate(3, minorRank, owningPlayer) {
+class Begger(owningPlayer:Int) extends Pirate(3, owningPlayer) {
+  
+  val rankOrdering:List[Int] = List(3,4,5,6,1,2);
   
   /*
    * Steal money from the most powerful pirate played

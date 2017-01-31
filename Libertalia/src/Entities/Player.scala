@@ -29,7 +29,7 @@ abstract class Player(playerNumber:Int, isActivePlayer:Boolean) {
    * There are some number of methods required to interact with players
    */
   def addCardToHand(pirate:Pirate) {
-    this.personalDeck(pirate.getMajorRank()).state = HAND;
+    this.personalDeck(pirate.majorRank).state = HAND;
   }
   
   def getCardsInState(state:Value):List[Int] = {
