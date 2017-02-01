@@ -19,7 +19,7 @@ class Begger(owningPlayer:Int) extends Pirate(3, owningPlayer) {
      val moneyStolen:Int = Math.min(targetPlayer.currentLoot, 3)
      targetPlayer.currentLoot -= moneyStolen;
      state.getPlayerByNumber(owningPlayer).currentLoot += moneyStolen; 
-     System.out.println("Player: " + owningPlayer + "Has money: " + state.getPlayerByNumber(owningPlayer).currentLoot);
+     //System.out.println("Player: " + owningPlayer + "Has money: " + state.getPlayerByNumber(owningPlayer).currentLoot);
    }
    
    def nightActivity(state: GameState) {

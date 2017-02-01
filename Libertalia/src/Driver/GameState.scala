@@ -4,6 +4,7 @@ import Entities.Player;
 import scala.collection.mutable.ListBuffer;
 import Treasure.Treasure;
 import Pirates.Pirate;
+import Pirates.PirateState._;
 
 class GameState {
   
@@ -22,7 +23,16 @@ class GameState {
      * Return
      */
     cardsInPlay = getCardsInOrder();
-    cardsInPlay.foreach(f => f.dayActivity(this))
+    cardsInPlay.foreach(f => f.dayActivity(this));
+    // After play, pirates go to the DEN... unless they died for some reason.
+    cardsInPlay.foreach(f => f.state = DEN);
+    // This looks a little crazy
+    players.foreach(player => { 
+      player.getCardsInState(DEN).foreach(pirateRank => {
+        player.getPirateFromDeck(pirateRank).nightActivity(this);
+        })
+      });
+
   }
   
   def endOfVoyage() {

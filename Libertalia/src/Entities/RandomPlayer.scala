@@ -10,7 +10,7 @@ class RandomPlayer(playerNumber:Int, isActivePlayer:Boolean) extends Player (pla
   def playCard(state:GameState):Pirate = {
     val piratesInHand = this.getCardsInState(HAND);
 
-    System.out.println("Number of options:" + piratesInHand.size);
+    //System.out.println("Number of options:" + piratesInHand.size);
     var randomPirate = piratesInHand(r.nextInt(piratesInHand.size));
     
     var choice:Pirate = this.getPirateFromDeck(randomPirate);

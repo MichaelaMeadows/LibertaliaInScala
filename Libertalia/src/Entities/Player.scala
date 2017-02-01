@@ -47,7 +47,7 @@ abstract class Player(playerNumber:Int, isActivePlayer:Boolean) {
     //innitPirate(new Topman(playerNumber));
     //innitPirate(new SpanishSpy(playerNumber));
     //innitPirate(new Cook(playerNumber));
-    //innitPirate(new Bosun(playerNumber));
+    innitPirate(new Bosun(playerNumber));
     //innitPirate(new Armorer(playerNumber));
     //innitPirate(new Merchant(playerNumber));
     //innitPirate(new Surgeon(playerNumber));
@@ -59,8 +59,11 @@ abstract class Player(playerNumber:Int, isActivePlayer:Boolean) {
     innitPirate(new FirstMate(playerNumber));
     //innitPirate(new Captain(playerNumber));
     innitPirate(new SpanishGovernor(playerNumber));
-    System.out.println("Starting rank list");
-    personalDeck.foreach(f => System.out.println("Rank:" + f.majorRank));
+    
+    
+    
+   // System.out.println("Starting rank list");
+   // personalDeck.foreach(f => System.out.println("Rank:" + f.majorRank));
     
   }
   
@@ -106,11 +109,11 @@ abstract class Player(playerNumber:Int, isActivePlayer:Boolean) {
   }
 
   def endOfVoyage(state:GameState) {
-    this.getCardsInState(DEN).foreach((p:Int) => this.personalDeck(p).endOfVoyageActivity(state))
+    this.getCardsInState(DEN).foreach((p:Int) => this.getPirateFromDeck(p).endOfVoyageActivity(state))
   }
 
   def nightActivity(state:GameState) {
-    this.getCardsInState(DEN).foreach((p:Int) => this.personalDeck(p).nightActivity(state))
+    this.getCardsInState(DEN).foreach((p:Int) => this.getPirateFromDeck(p).nightActivity(state))
   }
 
   // Various AI strategies need to extend this class and fill out what this method should do I guess.

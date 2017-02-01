@@ -5,9 +5,9 @@ import Entities.Player
 import Pirates.PirateState._;
 
 /*
- * Rank 4 class
+ * Rank 7 class
  */
-class Barkeep(owningPlayer:Int) extends Pirate(4, owningPlayer) {
+class Barkeep(owningPlayer:Int) extends Pirate(7, owningPlayer) {
   
   val rankOrdering:List[Int] = List(4,5,6,1,2,3);
 

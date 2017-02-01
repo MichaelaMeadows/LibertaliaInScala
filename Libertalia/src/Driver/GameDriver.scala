@@ -20,18 +20,24 @@ import scala.util.Random
     }
 
     // Three rounds of six turns I believe
-    for (round <- 0 to 1) {
-      System.out.println("Round: " + round);
+   // for (round <- 0 to 1) {
+   //   System.out.println("Round: " + round);
       for (turn <- 0 to turnCount) {
         System.out.println("Turn: " + turn);
         gameState.nextTurn();
       }
       gameState.endOfVoyage();
+      
+      for(playerNum <- 1 to playerCount) {
+        var score = gameState.getPlayerByNumber(playerNum).totalScore;
+        System.out.println(s"Player: $playerNum got final score: $score");
+      }
+
       // Once we ready to keep adding more cards, basically do this.
      // var temp = sliceStop + 6;
      // player.addCardsToHand(playDeck.slice(sliceStop, temp));
      // sliceStop = temp;
-    }
+   // }
     // Order players by final score and we're done!
   }
 }

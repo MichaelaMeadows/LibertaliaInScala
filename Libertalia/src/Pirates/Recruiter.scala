@@ -18,6 +18,7 @@ class Recruiter(owningPlayer:Int) extends Pirate(4, owningPlayer) {
      // You MUST place a card into your hand if able.
      if (piratesInDen.size > 0) {
          var decision:Int = state.getPlayerByNumber(owningPlayer).makeDecision(state, piratesInDen, "What pirate do you wish to return to your hand?");
+         System.out.println("Returned: " + decision);
          state.getPlayerByNumber(owningPlayer).getPirateFromDeck(decision).state = HAND;
      }
    }
