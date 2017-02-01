@@ -27,10 +27,17 @@ class GameState {
   
   def endOfVoyage() {
     /*
-     * Perform end of voyage activities.
-     * Return after updating final scored.
+     * Final activities of pirates in DEN
+     * Update total score
+     * Reset starting score
      */
+    players.foreach(player => {
+      player.endOfVoyage(this);
+      player.totalScore += player.currentLoot;
+      player.currentLoot = 10;
+    })
   }
+
   
   
   def getCardsInOrder():List[Pirate] = {

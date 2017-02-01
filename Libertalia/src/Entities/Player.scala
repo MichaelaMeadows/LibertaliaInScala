@@ -29,7 +29,7 @@ abstract class Player(playerNumber:Int, isActivePlayer:Boolean) {
       personalDeck(i) = new Begger(playerNumber);
     }
     // Commented out lines mean I haven't made that pirate yet!
-    innitPirate(new Parrot(playerNumber));
+    //innitPirate(new Parrot(playerNumber));
     //innitPirate(new Monkey(playerNumber));
     innitPirate(new Begger(playerNumber));
     innitPirate(new Recruiter(playerNumber));
@@ -53,12 +53,15 @@ abstract class Player(playerNumber:Int, isActivePlayer:Boolean) {
     //innitPirate(new Surgeon(playerNumber));
     //innitPirate(new Treasurer(playerNumber));
     innitPirate(new Gambler(playerNumber));
-    //innitPirate(new GovernorsDaughter(playerNumber));
+    innitPirate(new GovernorsDaughter(playerNumber));
     //innitPirate(new QuarterMaster(playerNumber));
     //innitPirate(new GrannyWata(playerNumber));
-    //innitPirate(new FirstMate(playerNumber));
+    innitPirate(new FirstMate(playerNumber));
     //innitPirate(new Captain(playerNumber));
-    //innitPirate(new SpanishGovernor(playerNumber));
+    innitPirate(new SpanishGovernor(playerNumber));
+    System.out.println("Starting rank list");
+    personalDeck.foreach(f => System.out.println("Rank:" + f.majorRank));
+    
   }
   
   def innitPirate(pirate:Pirate) {
@@ -74,7 +77,12 @@ abstract class Player(playerNumber:Int, isActivePlayer:Boolean) {
     //cardsToAdd.foreach(card => addCardToHand(personalDeck(card)));
     // Hard coding garbage for now to test
     // 2 is actually the begger (3 - 1)
-    addCardToHand(personalDeck(3 - 1));
+    //addCardToHand(personalDeck(3 - 1));
+    
+    //ANYTHING GOES
+    for (i <- 0 to 29) {
+     addCardToHand(personalDeck(i));
+    }
   }
   
   /*

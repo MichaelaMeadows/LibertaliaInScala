@@ -20,7 +20,7 @@ import scala.util.Random
     }
 
     // Three rounds of six turns I believe
-    for (round <- 0 to roundCount) {
+    for (round <- 0 to 1) {
       System.out.println("Round: " + round);
       for (turn <- 0 to turnCount) {
         System.out.println("Turn: " + turn);

@@ -17,6 +17,10 @@ abstract class Pirate(val majorRank:Int, val owningPlayer:Int) extends Ordered[P
     return rankOrdering(owningPlayer - 1);
   }
   
+  def getMyOwner(gameState:GameState):Player = {
+    return gameState.getPlayerByNumber(owningPlayer);
+  }
+  
   // Pirate is out of play by default
   var state = OUT_OF_PLAY;
   /*
