@@ -19,7 +19,7 @@ class Armorer(owningPlayer:Int) extends Pirate(20, owningPlayer) {
     * Gain 1 doubloon for each saber
     */
    def nightActivity(state: GameState) {
-     System.out.println("ARMORER WAS ACTIVATED");
+     //System.out.println("ARMORER WAS ACTIVATED");
      var sabers = 0;
      this.getMyOwner(state).treasure.foreach(t => {
        if (t.getType() == SWORD) {

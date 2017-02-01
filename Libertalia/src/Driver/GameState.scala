@@ -41,7 +41,13 @@ class GameState {
       var treasureChoice = relevantPlayer.chooseTreasure(this, treasure(turnNumber), "");
       // Do a check to make sure it's valid?
       if (treasureChoice != -1) {
-        relevantPlayer.treasure = relevantPlayer.treasure:+treasure(turnNumber)(treasureChoice);
+        
+        var selectedTreasure = treasure(turnNumber)(treasureChoice);
+        if (selectedTreasure.getType() == OFFICER) {
+          // Kill the poor pirate
+          p.state = DISCARD;
+        }
+        relevantPlayer.treasure = relevantPlayer.treasure:+selectedTreasure;
         treasure(turnNumber)(treasureChoice) = null;
       }
       })

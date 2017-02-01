@@ -37,7 +37,7 @@ abstract class Player(playerNumber:Int, isActivePlayer:Boolean) {
     //innitPirate(new CabinBoy(playerNumber));
     //innitPirate(new Preacher(playerNumber));
     innitPirate(new Barkeep(playerNumber)); 
-   // innitPirate(new Waitress(playerNumber));
+    innitPirate(new Waitress(playerNumber));
     innitPirate(new Carpenter(playerNumber));
     innitPirate(new FrenchOfficer(playerNumber));
     //innitPirate(new VoodooWitch(playerNumber));
@@ -57,9 +57,10 @@ abstract class Player(playerNumber:Int, isActivePlayer:Boolean) {
     innitPirate(new GovernorsDaughter(playerNumber));
     innitPirate(new QuarterMaster(playerNumber));
     //innitPirate(new GrannyWata(playerNumber));
-    innitPirate(new FirstMate(playerNumber));
-    innitPirate(new Captain(playerNumber));
-    innitPirate(new SpanishGovernor(playerNumber));
+    
+    //innitPirate(new FirstMate(playerNumber));
+   // innitPirate(new Captain(playerNumber));
+    //innitPirate(new SpanishGovernor(playerNumber));
     
     
     

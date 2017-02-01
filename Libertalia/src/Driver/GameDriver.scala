@@ -1,5 +1,6 @@
 package Driver
 import Entities.RandomPlayer
+import Pirates.PirateState._
 import scala.util.Random
   object HelloWorld {
   def main(args: Array[String]): Unit = {
@@ -32,6 +33,8 @@ import scala.util.Random
       for(playerNum <- 1 to playerCount) {
         var score = gameState.getPlayerByNumber(playerNum).totalScore;
         System.out.println(s"Player: $playerNum got final score: $score");
+        var piratesInDen = gameState.getPlayerByNumber(playerNum).getCardsInState(DEN).size;
+        System.out.println(s"Player: $playerNum had $piratesInDen surviving pirates");
       }
 
       // Once we ready to keep adding more cards, basically do this.
