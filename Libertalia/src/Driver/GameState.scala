@@ -14,11 +14,14 @@ class GameState {
   // Ordering is important for cards that interact with players adjacent to you.
   private var players:List[Player] = List();
   var activePlayers:Int = 0;
-  var treasure:Array[List[Treasure]] = Array.ofDim[List[Treasure]](6);
+  // 6 turns of up to 6 players
+  var treasure:Array[Array[Treasure]] = Array.ofDim[Treasure](6, 6);
+  var fullTreasureList:List[Treasure] = List();
+  var nextTreasurePiece = 0;
   // Once populated, this is assumed to be ordered... should use a structure to enforce that, haha.
   // TODO Players shouldn't be able to read this... I'll just leave it be for now though.
   var cardsInPlay:List[Pirate] = List();
-
+  var turnNumber = 0;
   def nextTurn() {
     /*
      * Solicit cards from players
@@ -36,7 +39,7 @@ class GameState {
         player.getPirateFromDeck(pirateRank).nightActivity(this);
         })
       });
-
+    turnNumber += 1;
   }
   
   def endOfVoyage() {
@@ -52,10 +55,11 @@ class GameState {
       player.currentLoot = 10;
       player.treasure = List();
     })
+    turnNumber = 0;
   }
 
   def innitVoyageTreasure() = {
-    treasure = Array.ofDim[List[Treasure]](6);
+    treasure = Array.ofDim[Treasure](6, 6);
     var treasureList = new ListBuffer[Treasure]();
     for (i <- 0 to 3) {
       treasureList += new Treasure(CHEST);
@@ -78,11 +82,14 @@ class GameState {
     for (i <- 0 to 9) {
       treasureList += new Treasure(CURSED);
     }
-    var treasureSelection = Random.shuffle(treasureList.toList);
-    val treasureIterator = Iterator(treasureSelection);
+    fullTreasureList = Random.shuffle(treasureList.toList);
+    //val treasureIterator = Iterator(treasureSelection);
     for (turn <- 0 to 5) {
-      for (playerNum <- 1 to activePlayers)
-      treasure(turn).+:(treasureIterator.next());
+      for (playerNum <- 0 to (activePlayers - 1))
+      {
+        treasure(turn)(playerNum) = fullTreasureList(nextTreasurePiece);
+        nextTreasurePiece += 1;
+      }
     }
 
   }

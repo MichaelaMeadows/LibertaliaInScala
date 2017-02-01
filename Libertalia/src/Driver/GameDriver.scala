@@ -18,6 +18,7 @@ import scala.util.Random
       player.addCardsToHand(playDeck.slice(0, sliceStop));
       gameState.addPlayer(player);
     }
+    gameState.innitVoyageTreasure();
 
     // Three rounds of six turns I believe
    // for (round <- 0 to 1) {
