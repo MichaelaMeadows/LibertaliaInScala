@@ -52,13 +52,13 @@ abstract class Player(playerNumber:Int, isActivePlayer:Boolean) {
     //innitPirate(new Armorer(playerNumber));
     //innitPirate(new Merchant(playerNumber));
     //innitPirate(new Surgeon(playerNumber));
-    //innitPirate(new Treasurer(playerNumber));
+    innitPirate(new Treasurer(playerNumber));
     innitPirate(new Gambler(playerNumber));
     innitPirate(new GovernorsDaughter(playerNumber));
     //innitPirate(new QuarterMaster(playerNumber));
     //innitPirate(new GrannyWata(playerNumber));
     innitPirate(new FirstMate(playerNumber));
-    //innitPirate(new Captain(playerNumber));
+    innitPirate(new Captain(playerNumber));
     innitPirate(new SpanishGovernor(playerNumber));
     
     
@@ -130,6 +130,7 @@ abstract class Player(playerNumber:Int, isActivePlayer:Boolean) {
       }
       })
       if (mapsFound > 3) {
+        //System.out.println("I GOT ENOUGH MAPS");
         treasureValue += 12;
       }
     this.currentLoot += treasureValue;
@@ -143,5 +144,8 @@ abstract class Player(playerNumber:Int, isActivePlayer:Boolean) {
   // Takes a prompt and expects an int response
   // Might want to also take in DECISION_TYPE or something to add minimal intelligence
   def makeDecision(state:GameState, possibleChoices:List[Int], decisionPrompt:String):Int
+  
+  // Return the index of the treasure you want
+  def chooseTreasure(state:GameState, possibleChoices:Array[Treasure], decisionPrompt:String):Int
   
 }

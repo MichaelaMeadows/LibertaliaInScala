@@ -14,6 +14,7 @@ class Treasure(treasureType:TreasureType.Value) {
     } else if (this.treasureType == TreasureType.CHEST) {
       return 5;
     } else if (this.treasureType == TreasureType.CURSED) {
+      System.out.println("LOSE MONEY");
       return -3;
     }
     /*

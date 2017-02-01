@@ -22,15 +22,32 @@ class GameState {
   // TODO Players shouldn't be able to read this... I'll just leave it be for now though.
   var cardsInPlay:List[Pirate] = List();
   var turnNumber = 0;
+  
   def nextTurn() {
     /*
      * Solicit cards from players
      * Order cards and execute daytime
+     * Choose treasure
      * Execute night time
      * Return
      */
     cardsInPlay = getCardsInOrder();
     cardsInPlay.foreach(f => f.dayActivity(this));
+    
+    cardsInPlay = cardsInPlay.filter(p => p.state == IN_PLAY);
+    cardsInPlay.reverse.foreach(p => {
+      var relevantPlayer = p.getMyOwner(this);
+      
+      var treasureChoice = relevantPlayer.chooseTreasure(this, treasure(turnNumber), "");
+      // Do a check to make sure it's valid?
+      if (treasureChoice != -1) {
+        relevantPlayer.treasure = relevantPlayer.treasure:+treasure(turnNumber)(treasureChoice);
+        treasure(turnNumber)(treasureChoice) = null;
+      }
+      })
+    // Encountering an officer will kill you!
+    cardsInPlay = cardsInPlay.filter(p => p.state == IN_PLAY);
+    
     // After play, pirates go to the DEN... unless they died for some reason.
     cardsInPlay.foreach(f => f.state = DEN);
     // This looks a little crazy
@@ -50,6 +67,9 @@ class GameState {
      */
     players.foreach(player => {
       player.endOfVoyage(this);
+      var items = player.treasure.size;
+      
+      System.out.println(s"Player got $items items");
       player.updateCurretScoreWithTreasure();
       player.totalScore += player.currentLoot;
       player.currentLoot = 10;
@@ -85,8 +105,7 @@ class GameState {
     fullTreasureList = Random.shuffle(treasureList.toList);
     //val treasureIterator = Iterator(treasureSelection);
     for (turn <- 0 to 5) {
-      for (playerNum <- 0 to (activePlayers - 1))
-      {
+      for (playerNum <- 0 to (activePlayers - 1)) {
         treasure(turn)(playerNum) = fullTreasureList(nextTreasurePiece);
         nextTreasurePiece += 1;
       }
