@@ -4,6 +4,7 @@ import Pirates.Pirate;
 import Driver.GameState;
 import Pirates._;
 import Pirates.PirateState._;
+import Treasure.TreasureType._;
 import Treasure.Treasure;
 
 abstract class Player(playerNumber:Int, isActivePlayer:Boolean) {
@@ -38,7 +39,7 @@ abstract class Player(playerNumber:Int, isActivePlayer:Boolean) {
     innitPirate(new Barkeep(playerNumber)); 
    // innitPirate(new Waitress(playerNumber));
     innitPirate(new Carpenter(playerNumber));
-    //innitPirate(new FrenchOfficer(playerNumber));
+    innitPirate(new FrenchOfficer(playerNumber));
     //innitPirate(new VoodooWitch(playerNumber));
     //innitPirate(new FreedSlave(playerNumber));
     //innitPirate(new Mutineer(playerNumber));
@@ -95,7 +96,7 @@ abstract class Player(playerNumber:Int, isActivePlayer:Boolean) {
     this.personalDeck(pirate.majorRank - 1).state = HAND;
   }
   
-  def getCardsInState(state:Value):List[Int] = {
+  def getCardsInState(state:PirateState.Value):List[Int] = {
     val buf = new ListBuffer[Int];
     var position = 0;
     personalDeck.foreach((p:Pirate) => {
@@ -114,6 +115,24 @@ abstract class Player(playerNumber:Int, isActivePlayer:Boolean) {
 
   def nightActivity(state:GameState) {
     this.getCardsInState(DEN).foreach((p:Int) => this.getPirateFromDeck(p).nightActivity(state))
+  }
+  
+  /*
+   * Add up all the treasure values.
+   */
+  def updateCurretScoreWithTreasure() {
+    var treasureValue:Int = 0;
+    var mapsFound:Int = 0;
+    treasure.foreach(treasure => {
+      treasureValue += treasure.getValue();
+      if (treasure.getType() == MAP) {
+        mapsFound += 1;
+      }
+      })
+      if (mapsFound >3) {
+        treasureValue += 12;
+      }
+    this.currentLoot += treasureValue;
   }
 
   // Various AI strategies need to extend this class and fill out what this method should do I guess.

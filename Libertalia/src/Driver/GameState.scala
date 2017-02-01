@@ -43,8 +43,10 @@ class GameState {
      */
     players.foreach(player => {
       player.endOfVoyage(this);
+      player.updateCurretScoreWithTreasure();
       player.totalScore += player.currentLoot;
       player.currentLoot = 10;
+      player.treasure = List();
     })
   }
 
