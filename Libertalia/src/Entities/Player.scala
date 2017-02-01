@@ -49,13 +49,13 @@ abstract class Player(playerNumber:Int, isActivePlayer:Boolean) {
     //innitPirate(new SpanishSpy(playerNumber));
     //innitPirate(new Cook(playerNumber));
     innitPirate(new Bosun(playerNumber));
-    //innitPirate(new Armorer(playerNumber));
+    innitPirate(new Armorer(playerNumber));
     //innitPirate(new Merchant(playerNumber));
     //innitPirate(new Surgeon(playerNumber));
     innitPirate(new Treasurer(playerNumber));
     innitPirate(new Gambler(playerNumber));
     innitPirate(new GovernorsDaughter(playerNumber));
-    //innitPirate(new QuarterMaster(playerNumber));
+    innitPirate(new QuarterMaster(playerNumber));
     //innitPirate(new GrannyWata(playerNumber));
     innitPirate(new FirstMate(playerNumber));
     innitPirate(new Captain(playerNumber));
