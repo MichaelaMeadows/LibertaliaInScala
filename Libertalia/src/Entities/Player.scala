@@ -129,7 +129,7 @@ abstract class Player(playerNumber:Int, isActivePlayer:Boolean) {
         mapsFound += 1;
       }
       })
-      if (mapsFound >3) {
+      if (mapsFound > 3) {
         treasureValue += 12;
       }
     this.currentLoot += treasureValue;

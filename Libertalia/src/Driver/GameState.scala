@@ -5,11 +5,15 @@ import scala.collection.mutable.ListBuffer;
 import Treasure.Treasure;
 import Pirates.Pirate;
 import Pirates.PirateState._;
+import Treasure.TreasureType._;
+import scala.collection.mutable.ListBuffer;
+import scala.util.Random;
 
 class GameState {
   
   // Ordering is important for cards that interact with players adjacent to you.
   private var players:List[Player] = List();
+  var activePlayers:Int = 0;
   var treasure:Array[List[Treasure]] = Array.ofDim[List[Treasure]](6);
   // Once populated, this is assumed to be ordered... should use a structure to enforce that, haha.
   // TODO Players shouldn't be able to read this... I'll just leave it be for now though.
@@ -50,7 +54,38 @@ class GameState {
     })
   }
 
-  
+  def innitVoyageTreasure() = {
+    treasure = Array.ofDim[List[Treasure]](6);
+    var treasureList = new ListBuffer[Treasure]();
+    for (i <- 0 to 3) {
+      treasureList += new Treasure(CHEST);
+    }
+    for (i <- 0 to 5) {
+      treasureList += new Treasure(JEWELS);
+    }
+    for (i <- 0 to 9) {
+      treasureList += new Treasure(BARREL);
+    }
+    for (i <- 0 to 5) {
+      treasureList += new Treasure(OFFICER);
+    }
+    for (i <- 0 to 5) {
+      treasureList += new Treasure(SWORD);
+    }
+    for (i <- 0 to 7) {
+      treasureList += new Treasure(MAP);
+    }
+    for (i <- 0 to 9) {
+      treasureList += new Treasure(CURSED);
+    }
+    var treasureSelection = Random.shuffle(treasureList.toList);
+    val treasureIterator = Iterator(treasureSelection);
+    for (turn <- 0 to 5) {
+      for (playerNum <- 1 to activePlayers)
+      treasure(turn).+:(treasureIterator.next());
+    }
+
+  }
   
   def getCardsInOrder():List[Pirate] = {
     val cards = new ListBuffer[Pirate];
@@ -59,6 +94,7 @@ class GameState {
   }
   
   def addPlayer(player:Player) = {
+    activePlayers += 1;
     players = players:+ player;
   }
   
