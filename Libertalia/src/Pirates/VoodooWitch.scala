@@ -6,16 +6,19 @@ import Pirates.PirateState._;
 import Treasure.TreasureType._;
 
 /*
- * Rank 18 class
+ * Rank 11 class
  * 
- * The cooks special power takes place during treasure selection. The cook MUST slect 2 items, if able to.
  */
-class Cook(owningPlayer:Int) extends Pirate(18, owningPlayer) {
+class VoodooWitch(owningPlayer:Int) extends Pirate(11, owningPlayer) {
   
    val rankOrdering:List[Int] = List(4,5,6,1,2,3);
 
+   /*
+    * Gain 2 for each discarded character (only things discarded this voyage)
+    */
    def dayActivity(state: GameState) {
-     return;
+     var owner = this.getMyOwner(state);
+     owner.currentLoot += owner.getCardsInState(DISCARD).size;
    }
    
    def nightActivity(state: GameState) {
