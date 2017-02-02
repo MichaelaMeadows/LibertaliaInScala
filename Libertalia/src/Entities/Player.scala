@@ -41,10 +41,10 @@ abstract class Player(playerNumber:Int, isActivePlayer:Boolean) {
     innitPirate(new Waitress(playerNumber));
     innitPirate(new Carpenter(playerNumber));
     innitPirate(new FrenchOfficer(playerNumber));
-    //innitPirate(new VoodooWitch(playerNumber));
+    innitPirate(new VoodooWitch(playerNumber));
     innitPirate(new FreedSlave(playerNumber));
     //innitPirate(new Mutineer(playerNumber));
-    //innitPirate(new Brute(playerNumber));
+    innitPirate(new Brute(playerNumber));
     //innitPirate(new Gunner(playerNumber));
     //innitPirate(new Topman(playerNumber));
     //innitPirate(new SpanishSpy(playerNumber));
