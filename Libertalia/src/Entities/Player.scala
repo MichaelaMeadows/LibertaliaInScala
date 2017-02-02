@@ -42,7 +42,7 @@ abstract class Player(playerNumber:Int, isActivePlayer:Boolean) {
     innitPirate(new Carpenter(playerNumber));
     innitPirate(new FrenchOfficer(playerNumber));
     //innitPirate(new VoodooWitch(playerNumber));
-    //innitPirate(new FreedSlave(playerNumber));
+    innitPirate(new FreedSlave(playerNumber));
     //innitPirate(new Mutineer(playerNumber));
     //innitPirate(new Brute(playerNumber));
     //innitPirate(new Gunner(playerNumber));
@@ -117,6 +117,14 @@ abstract class Player(playerNumber:Int, isActivePlayer:Boolean) {
     this.getCardsInState(DEN).foreach((p:Int) => this.getPirateFromDeck(p).nightActivity(state))
   }
   
+  def resetDenAndDiscard() {
+    this.personalDeck.foreach(pirate => {
+      if (pirate.state == DEN
+          || pirate.state == DISCARD) {
+        pirate.state = OUT_OF_PLAY;
+      }
+    });
+  }
   /*
    * Add up all the treasure values.
    */

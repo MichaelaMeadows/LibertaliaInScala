@@ -22,7 +22,7 @@ abstract class Pirate(val majorRank:Int, val owningPlayer:Int) extends Ordered[P
   }
   
   // Pirate is out of play by default
-  var state = OUT_OF_PLAY;
+  var state = NOT_IN_PLAY;
   /*
    * 0 Not in play
    * 1 In hand

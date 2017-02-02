@@ -115,6 +115,7 @@ class GameState {
       player.totalScore += player.currentLoot;
       player.currentLoot = 10;
       player.treasure = List();
+      player.resetDenAndDiscard();
     })
     turnNumber = 0;
   }
