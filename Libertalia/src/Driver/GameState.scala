@@ -81,6 +81,20 @@ class GameState {
           // Kill the poor pirate
           p.state = DISCARD;
         }
+        if (selectedTreasure.getType() == SWORD) {
+          // Kill a pirate in adjacent den.
+         // System.out.println("Checking adjaceny for: " + p.owningPlayer);
+         // getAdjacentPlayers(p.owningPlayer - 1).foreach(f => System.out.println("AdjacentIs: " + f.myNumber));
+          var adjacentPlayersWithKillablePirates:List[Int] = getAdjacentPlayers(p.owningPlayer - 1).filter(player => player.getCardsInState(DEN).size > 0)
+          .map(possible => possible.myNumber);
+          if (adjacentPlayersWithKillablePirates.size > 0) {
+            var playerChoice = relevantPlayer.makeDecision(this, adjacentPlayersWithKillablePirates, "Select a player to attack");
+            var pirateToAttack = relevantPlayer.makeDecision(this, players(playerChoice - 1 ).getCardsInState(DEN), "Select a pirate to kill");
+            players(playerChoice - 1).getPirateFromDeck(pirateToAttack).state = DISCARD;
+            var decider = relevantPlayer.myNumber;
+            //System.out.println(s"Player: $decider attacked $playerChoice and killed $pirateToAttack");
+          }
+        }
           relevantPlayer.treasure = relevantPlayer.treasure:+selectedTreasure;
           treasure(turnNumber)(treasureChoice) = null;
         }

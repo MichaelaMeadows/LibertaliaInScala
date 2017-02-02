@@ -25,7 +25,7 @@ import scala.util.Random
    // for (round <- 0 to 1) {
    //   System.out.println("Round: " + round);
       for (turn <- 0 to turnCount - 1) {
-        System.out.println("Turn: " + turn);
+        //System.out.println("Turn: " + turn);
         gameState.nextTurn();
       }
       gameState.endOfVoyage();

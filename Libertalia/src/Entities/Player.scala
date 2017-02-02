@@ -19,6 +19,7 @@ abstract class Player(playerNumber:Int, isActivePlayer:Boolean) {
   var treasure:List[Treasure] = List();
   var totalScore:Int = 0;
   var currentLoot:Int = 10;
+  var myNumber = playerNumber;
   
   /*
    * Fill the personal deck with cards not in play, and with the correct minor version
