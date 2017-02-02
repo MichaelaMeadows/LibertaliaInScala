@@ -34,7 +34,7 @@ abstract class Player(playerNumber:Int, isActivePlayer:Boolean) {
     //innitPirate(new Monkey(playerNumber));
     innitPirate(new Begger(playerNumber));
     innitPirate(new Recruiter(playerNumber));
-    //innitPirate(new CabinBoy(playerNumber));
+    innitPirate(new CabinBoy(playerNumber));
     //innitPirate(new Preacher(playerNumber));
     innitPirate(new Barkeep(playerNumber)); 
     innitPirate(new Waitress(playerNumber));
@@ -47,7 +47,7 @@ abstract class Player(playerNumber:Int, isActivePlayer:Boolean) {
     //innitPirate(new Gunner(playerNumber));
     //innitPirate(new Topman(playerNumber));
     //innitPirate(new SpanishSpy(playerNumber));
-    //innitPirate(new Cook(playerNumber));
+    innitPirate(new Cook(playerNumber));
     innitPirate(new Bosun(playerNumber));
     innitPirate(new Armorer(playerNumber));
     //innitPirate(new Merchant(playerNumber));

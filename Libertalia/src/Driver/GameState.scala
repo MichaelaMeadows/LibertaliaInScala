@@ -4,6 +4,8 @@ import Entities.Player;
 import scala.collection.mutable.ListBuffer;
 import Treasure.Treasure;
 import Pirates.Pirate;
+import Pirates.CabinBoy;
+import Pirates.Cook;
 import Pirates.PirateState._;
 import Treasure.TreasureType._;
 import scala.collection.mutable.ListBuffer;
@@ -23,46 +25,65 @@ class GameState {
   var cardsInPlay:List[Pirate] = List();
   var turnNumber = 0;
   
+   /*
+   * Solicit cards from players
+   * Order cards and execute daytime
+   * Choose treasure
+   * Execute night time
+   * Return
+   */
   def nextTurn() {
-    /*
-     * Solicit cards from players
-     * Order cards and execute daytime
-     * Choose treasure
-     * Execute night time
-     * Return
-     */
     cardsInPlay = getCardsInOrder();
     cardsInPlay.foreach(f => f.dayActivity(this));
-    
+    // We do a filter after every stage in case a pirate has died.
     cardsInPlay = cardsInPlay.filter(p => p.state == IN_PLAY);
-    cardsInPlay.reverse.foreach(p => {
-      var relevantPlayer = p.getMyOwner(this);
-      
-      var treasureChoice = relevantPlayer.chooseTreasure(this, treasure(turnNumber), "");
-      // Do a check to make sure it's valid?
-      if (treasureChoice != -1) {
-        
-        var selectedTreasure = treasure(turnNumber)(treasureChoice);
-        if (selectedTreasure.getType() == OFFICER) {
-          // Kill the poor pirate
-          p.state = DISCARD;
-        }
-        relevantPlayer.treasure = relevantPlayer.treasure:+selectedTreasure;
-        treasure(turnNumber)(treasureChoice) = null;
-      }
-      })
-    // Encountering an officer will kill you!
+    duskStage();
+    // We do a filter after every stage in case a pirate has died.
     cardsInPlay = cardsInPlay.filter(p => p.state == IN_PLAY);
-    
+    nightStage();
+    // Increment the turn counter
+    turnNumber += 1;
+  }
+  
+  def nightStage() = {
     // After play, pirates go to the DEN... unless they died for some reason.
     cardsInPlay.foreach(f => f.state = DEN);
     // This looks a little crazy
     players.foreach(player => { 
       player.getCardsInState(DEN).foreach(pirateRank => {
-        player.getPirateFromDeck(pirateRank).nightActivity(this);
+         player.getPirateFromDeck(pirateRank).nightActivity(this);
         })
-      });
-    turnNumber += 1;
+    });
+  }
+  
+  def duskStage() = {
+        cardsInPlay.reverse.foreach(p => {
+          if (p.isInstanceOf[Cook]) {
+            selectAndUpdateTreasure(p);
+            selectAndUpdateTreasure(p);
+          } else if (p.isInstanceOf[CabinBoy]) {
+            // Do nothin
+          } else {
+            // All other pirates select as normal.
+            selectAndUpdateTreasure(p);
+          }
+        })
+  }
+  
+  // This can be executed 0-2 times depending on the pirate being played
+  def selectAndUpdateTreasure(p:Pirate) = {
+    var relevantPlayer = p.getMyOwner(this);
+      var treasureChoice = relevantPlayer.chooseTreasure(this, treasure(turnNumber), "");
+      // Do a check to make sure it's valid?
+      if (treasureChoice != -1) {
+        var selectedTreasure = treasure(turnNumber)(treasureChoice);
+        if (selectedTreasure.getType() == OFFICER) {
+          // Kill the poor pirate
+          p.state = DISCARD;
+        }
+          relevantPlayer.treasure = relevantPlayer.treasure:+selectedTreasure;
+          treasure(turnNumber)(treasureChoice) = null;
+        }
   }
   
   def endOfVoyage() {
