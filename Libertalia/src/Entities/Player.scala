@@ -59,12 +59,10 @@ abstract class Player(playerNumber:Int, isActivePlayer:Boolean) {
     innitPirate(new QuarterMaster(playerNumber));
     //innitPirate(new GrannyWata(playerNumber));
     
-    //innitPirate(new FirstMate(playerNumber));
-   // innitPirate(new Captain(playerNumber));
-    //innitPirate(new SpanishGovernor(playerNumber));
-    
-    
-    
+    innitPirate(new FirstMate(playerNumber));
+    innitPirate(new Captain(playerNumber));
+    innitPirate(new SpanishGovernor(playerNumber));
+
    // System.out.println("Starting rank list");
    // personalDeck.foreach(f => System.out.println("Rank:" + f.majorRank));
     

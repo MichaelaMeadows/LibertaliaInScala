@@ -97,7 +97,7 @@ class GameState {
         }
           relevantPlayer.treasure = relevantPlayer.treasure:+selectedTreasure;
           treasure(turnNumber)(treasureChoice) = null;
-        }
+      }
   }
   
   def endOfVoyage() {
