@@ -11,7 +11,6 @@ class Parrot(owningPlayer:Int) extends Pirate(1, owningPlayer) {
    * Swap with another pirate in hand
    */
    def dayActivity(state: GameState) {
-     
    }
    def nightActivity(state: GameState) {
      return;

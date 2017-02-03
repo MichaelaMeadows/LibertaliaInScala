@@ -6,6 +6,7 @@ import Treasure.Treasure;
 import Pirates.Pirate;
 import Pirates.CabinBoy;
 import Pirates.Cook;
+import Pirates.Parrot;
 import Pirates.PirateState._;
 import Treasure.TreasureType._;
 import scala.collection.mutable.ListBuffer;
@@ -34,6 +35,7 @@ class GameState {
    */
   def nextTurn() {
     cardsInPlay = getCardsInOrder();
+    doParrotCheck();
     cardsInPlay.foreach(f => f.dayActivity(this));
     // We do a filter after every stage in case a pirate has died.
     cardsInPlay = cardsInPlay.filter(p => p.state == IN_PLAY);
@@ -43,6 +45,18 @@ class GameState {
     nightStage();
     // Increment the turn counter
     turnNumber += 1;
+  }
+  
+  def doParrotCheck() = {
+    while (cardsInPlay(0).isInstanceOf[Parrot]) {
+      System.out.println("Doing the parrot thing");
+      var player = cardsInPlay(0).getMyOwner(this);
+      cardsInPlay(0).state = DISCARD;
+      cardsInPlay = cardsInPlay.filter(p => p.state == IN_PLAY);
+      System.out.println("After parrot filter size:" + cardsInPlay.size);
+      cardsInPlay = cardsInPlay:+player.playCard(this); 
+      System.out.println("After new cards played size:" + cardsInPlay.size);
+    }
   }
   
   def nightStage() = {

@@ -7,7 +7,7 @@ import Pirates.PirateState._;
 /*
  * Rank 14 class
  */
-class Brute(owningPlayer:Int) extends Pirate(3, owningPlayer) {
+class Brute(owningPlayer:Int) extends Pirate(14, owningPlayer) {
   
   val rankOrdering:List[Int] = List(6,1,2,3,4,5);
   

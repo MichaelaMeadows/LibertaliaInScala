@@ -38,11 +38,11 @@ abstract class Pirate(val majorRank:Int, val owningPlayer:Int) extends Ordered[P
   // 0 Isn't possible... unless we have a bug
   def compare(that: Pirate):Int = {
     if (that.majorRank > this.majorRank) {
-     return 1;
+     return -1;
     } else if (that.majorRank < this.majorRank) {
-      return -1;
-    } else if (that.getMinorRank() > this.getMinorRank()) {
       return 1;
+    } else if (that.getMinorRank() > this.getMinorRank()) {
+      return -1;
     }
     return -1;
   }

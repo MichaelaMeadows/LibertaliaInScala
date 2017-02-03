@@ -20,6 +20,7 @@ abstract class Player(playerNumber:Int, isActivePlayer:Boolean) {
   var totalScore:Int = 0;
   var currentLoot:Int = 10;
   var myNumber = playerNumber;
+  var activePlayer = isActivePlayer;
   
   /*
    * Fill the personal deck with cards not in play, and with the correct minor version
@@ -31,7 +32,7 @@ abstract class Player(playerNumber:Int, isActivePlayer:Boolean) {
       personalDeck(i) = new Begger(playerNumber);
     }
     // Commented out lines mean I haven't made that pirate yet!
-    //innitPirate(new Parrot(playerNumber));
+    innitPirate(new Parrot(playerNumber));
     //innitPirate(new Monkey(playerNumber));
     innitPirate(new Begger(playerNumber));
     innitPirate(new Recruiter(playerNumber));
@@ -45,7 +46,7 @@ abstract class Player(playerNumber:Int, isActivePlayer:Boolean) {
     innitPirate(new FreedSlave(playerNumber));
     //innitPirate(new Mutineer(playerNumber));
     innitPirate(new Brute(playerNumber));
-    //innitPirate(new Gunner(playerNumber));
+    innitPirate(new Gunner(playerNumber));
     //innitPirate(new Topman(playerNumber));
     //innitPirate(new SpanishSpy(playerNumber));
     innitPirate(new Cook(playerNumber));

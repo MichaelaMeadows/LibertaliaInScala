@@ -34,7 +34,7 @@ import scala.util.Random
         var score = gameState.getPlayerByNumber(playerNum).totalScore;
         System.out.println(s"Player: $playerNum got final score: $score");
         var piratesInDen = gameState.getPlayerByNumber(playerNum).getCardsInState(DEN).size;
-        System.out.println(s"Player: $playerNum had $piratesInDen surviving pirates");
+        //System.out.println(s"Player: $playerNum had $piratesInDen surviving pirates");
       }
 
       // Once we ready to keep adding more cards, basically do this.
