@@ -22,13 +22,16 @@ import scala.util.Random
     gameState.innitVoyageTreasure();
 
     // Three rounds of six turns I believe
-   // for (round <- 0 to 1) {
+   // for (round <- 0 to 2) {
+     // gameState.innitVoyageTreasure();
    //   System.out.println("Round: " + round);
       for (turn <- 0 to turnCount - 1) {
         //System.out.println("Turn: " + turn);
         gameState.nextTurn();
       }
       gameState.endOfVoyage();
+     // gameState.innitVoyageTreasure();
+     // gameState.players.ad
       
       for(playerNum <- 1 to playerCount) {
         var score = gameState.getPlayerByNumber(playerNum).totalScore;

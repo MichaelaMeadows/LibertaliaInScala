@@ -15,7 +15,7 @@ import scala.util.Random;
 class GameState {
   
   // Ordering is important for cards that interact with players adjacent to you.
-  private var players:List[Player] = List();
+  var players:List[Player] = List();
   var activePlayers:Int = 0;
   // 6 turns of up to 6 players
   var treasure:Array[Array[Treasure]] = Array.ofDim[Treasure](6, 6);
@@ -67,7 +67,7 @@ class GameState {
     
     // This looks a little crazy
     players.foreach(player => { 
-      player.getCardsInState(DEN).foreach(pirateRank => {
+      player.getCardsInState(DEN).reverse.foreach(pirateRank => {
          player.getPirateFromDeck(pirateRank).nightActivity(this);
         })
     });
