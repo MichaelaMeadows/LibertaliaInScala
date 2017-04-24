@@ -38,7 +38,7 @@ class Waitress(owningPlayer:Int) extends Pirate(8, owningPlayer) {
            mapCount -= 1;
          }
          this.getMyOwner(state).currentLoot += 3;
-         this.getMyOwner(state).treasure.foreach(t => System.out.println("" + t.getType()));
+         //this.getMyOwner(state).treasure.foreach(t => System.out.println("" + t.getType()));
          return;
        }
        //System.out.println("I chose NOT to sell a map");

@@ -47,8 +47,8 @@ abstract class Player(playerNumber:Int, isActivePlayer:Boolean) {
     innitPirate(new Mutineer(playerNumber));
     innitPirate(new Brute(playerNumber));
     innitPirate(new Gunner(playerNumber));
-    //innitPirate(new Topman(playerNumber));
-    //innitPirate(new SpanishSpy(playerNumber));
+    innitPirate(new Topman(playerNumber));
+    innitPirate(new SpanishSpy(playerNumber));
     innitPirate(new Cook(playerNumber));
     innitPirate(new Bosun(playerNumber));
     innitPirate(new Armorer(playerNumber));

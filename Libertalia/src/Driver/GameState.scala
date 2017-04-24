@@ -136,6 +136,17 @@ class GameState {
   }
   
   def endOfVoyage() {
+    
+    /*
+     * We must do the Topman check before the dens are cleared.
+     */
+    // 16 is the Topman rank... this does execute some wated loops.... :(
+    players.foreach(player => {
+      if (player.getPirateFromDeck(16).state == DEN) {
+        player.getPirateFromDeck(16).endOfVoyageActivity(this);
+      }
+    });
+    
     /*
      * Final activities of pirates in DEN
      * Update total score
@@ -157,6 +168,7 @@ class GameState {
 
   def innitVoyageTreasure() = {
     treasure = Array.ofDim[Treasure](6, 6);
+    nextTreasurePiece = 0;
     var treasureList = new ListBuffer[Treasure]();
     for (i <- 0 to 3) {
       treasureList += new Treasure(CHEST);
