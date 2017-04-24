@@ -17,6 +17,8 @@ class Mutineer(owningPlayer:Int) extends Pirate(13, owningPlayer) {
      var possibleKills = owner.getCardsInState(DEN).filter(p => p != 13).sorted;
      if (possibleKills.size > 0) {
        owner.getPirateFromDeck(possibleKills(0)).state = DISCARD;
+       //System.out.println("Mutineer could have killed" + possibleKills)
+       //System.out.println("Mutineer Killed " + possibleKills(0))
        owner.currentLoot += 2;
      }
    }
