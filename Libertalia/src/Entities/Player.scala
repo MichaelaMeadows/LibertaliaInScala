@@ -33,7 +33,7 @@ abstract class Player(playerNumber:Int, isActivePlayer:Boolean) {
     }
     // Commented out lines mean I haven't made that pirate yet!
     innitPirate(new Parrot(playerNumber));
-    //innitPirate(new Monkey(playerNumber));
+    innitPirate(new Monkey(playerNumber));
     innitPirate(new Begger(playerNumber));
     innitPirate(new Recruiter(playerNumber));
     innitPirate(new CabinBoy(playerNumber));
@@ -58,7 +58,7 @@ abstract class Player(playerNumber:Int, isActivePlayer:Boolean) {
     innitPirate(new Gambler(playerNumber));
     innitPirate(new GovernorsDaughter(playerNumber));
     innitPirate(new QuarterMaster(playerNumber));
-    //innitPirate(new GrannyWata(playerNumber));
+    innitPirate(new GrannyWata(playerNumber));
     
     innitPirate(new FirstMate(playerNumber));
     innitPirate(new Captain(playerNumber));

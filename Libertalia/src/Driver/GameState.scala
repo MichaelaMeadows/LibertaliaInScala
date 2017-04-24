@@ -49,25 +49,46 @@ class GameState {
   
   def doParrotCheck() = {
     while (cardsInPlay(0).isInstanceOf[Parrot]) {
-      System.out.println("Doing the parrot thing");
+      //System.out.println("Doing the parrot thing");
       var player = cardsInPlay(0).getMyOwner(this);
       cardsInPlay(0).state = DISCARD;
       cardsInPlay = cardsInPlay.filter(p => p.state == IN_PLAY);
-      System.out.println("After parrot filter size:" + cardsInPlay.size);
+      //System.out.println("After parrot filter size:" + cardsInPlay.size);
       cardsInPlay = cardsInPlay:+player.playCard(this); 
-      System.out.println("After new cards played size:" + cardsInPlay.size);
+      //System.out.println("After new cards played size:" + cardsInPlay.size);
     }
   }
   
   def nightStage() = {
     // After play, pirates go to the DEN... unless they died for some reason.
     cardsInPlay.foreach(f => f.state = DEN);
+    // Perform Granny Wata Kill Check
+    doGrannyWataCheck();
+    
     // This looks a little crazy
     players.foreach(player => { 
       player.getCardsInState(DEN).foreach(pirateRank => {
          player.getPirateFromDeck(pirateRank).nightActivity(this);
         })
     });
+  }
+  
+  def doGrannyWataCheck() = {
+    var grannyCount = 0;
+    players.foreach(player => {
+      if (player.getPirateFromDeck(27).state == DEN) {
+        grannyCount+=1;
+      }
+    });
+    
+    if (grannyCount > 1) {
+      //System.out.println("Destroying the Grannys: " + grannyCount);
+      players.foreach(player => {
+      if (player.getPirateFromDeck(27).state == DEN) {
+        player.getPirateFromDeck(27).state = DISCARD;
+      }
+    });
+    }
   }
   
   def duskStage() = {
@@ -192,6 +213,15 @@ class GameState {
     val leftPlayer:Player = players(leftPos);
     val rightPlayer:Player = players(((playerPosition+1) % players.size));
     return List(leftPlayer, rightPlayer);
+  }
+  
+  // Just used for the monkey
+  def getLeftPlayer(playerPosition:Int):Player = {
+    var leftPos:Int = playerPosition-1;
+    if (leftPos < 0) {
+      leftPos = players.size - 1;
+    }
+    return players(leftPos);
   }
   
   // TODO - Eventually this records the state before a decision, and what decision the "player" made. 
