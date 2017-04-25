@@ -26,5 +26,9 @@ class Treasure(treasureType:TreasureType.Value) {
   def getType():TreasureType.Value = {
     return this.treasureType;
   }
-  
+
+  override def hashCode() = {
+    this.treasureType.hashCode();
+  }
+
 }

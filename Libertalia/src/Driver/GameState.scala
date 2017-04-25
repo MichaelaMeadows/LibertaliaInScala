@@ -156,7 +156,7 @@ class GameState {
       player.endOfVoyage(this);
       var items = player.treasure.size;
       
-      System.out.println(s"Player got $items items");
+      //System.out.println(s"Player got $items items");
       player.updateCurretScoreWithTreasure();
       player.totalScore += player.currentLoot;
       player.currentLoot = 10;

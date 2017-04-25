@@ -28,9 +28,9 @@ abstract class Player(playerNumber:Int, isActivePlayer:Boolean) {
    */
   def innitDeck() {
     // If I haven't made it yet, it's a beggar. Worst game ever. Literally unplayable.
-    for (i <- 0 to 29) {
-      personalDeck(i) = new Begger(playerNumber);
-    }
+   // for (i <- 0 to 29) {
+    //  personalDeck(i) = new Begger(playerNumber);
+   // }
     // Commented out lines mean I haven't made that pirate yet!
     innitPirate(new Parrot(playerNumber));
     innitPirate(new Monkey(playerNumber));
@@ -52,20 +52,19 @@ abstract class Player(playerNumber:Int, isActivePlayer:Boolean) {
     innitPirate(new Cook(playerNumber));
     innitPirate(new Bosun(playerNumber));
     innitPirate(new Armorer(playerNumber));
-    //innitPirate(new Merchant(playerNumber));
-    //innitPirate(new Surgeon(playerNumber));
+    innitPirate(new Merchant(playerNumber));
+    innitPirate(new Surgeon(playerNumber));
     innitPirate(new Treasurer(playerNumber));
     innitPirate(new Gambler(playerNumber));
     innitPirate(new GovernorsDaughter(playerNumber));
     innitPirate(new QuarterMaster(playerNumber));
     innitPirate(new GrannyWata(playerNumber));
-    
     innitPirate(new FirstMate(playerNumber));
     innitPirate(new Captain(playerNumber));
     innitPirate(new SpanishGovernor(playerNumber));
 
-   // System.out.println("Starting rank list");
-   // personalDeck.foreach(f => System.out.println("Rank:" + f.majorRank));
+    //System.out.println("Starting rank list");
+    //personalDeck.foreach(f => System.out.println("Rank:" + f.majorRank));
     
   }
   
