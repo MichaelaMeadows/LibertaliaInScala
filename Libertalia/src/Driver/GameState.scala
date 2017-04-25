@@ -12,6 +12,7 @@ import Entities.DecisionType._;
 import Treasure.TreasureType._;
 import scala.collection.mutable.ListBuffer;
 import scala.util.Random;
+import java.io._;
 
 class GameState {
   
@@ -28,6 +29,12 @@ class GameState {
   var turnNumber = 0;
   var voyageNumber = 0;
   
+
+  var file:File = null;
+  var bw:BufferedWriter = null;// = new File(canonicalFilename)
+  //val bw = new BufferedWriter(new FileWriter(file))
+  //bw.write(text)
+ // bw.close()
    /*
    * Solicit cards from players
    * Order cards and execute daytime
@@ -35,6 +42,7 @@ class GameState {
    * Execute night time
    * Return
    */
+  
   def nextTurn() {
     cardsInPlay = getCardsInOrder();
     doParrotCheck();
@@ -246,6 +254,18 @@ class GameState {
     buf ++= voyageNumber + "," + turnNumber;
     players.foreach(p => buf++= p.getStateString());
     buf.toString();
+  }
+  
+  def openStateRecording(fileName:String) {
+    file = new File(fileName)
+    bw = new BufferedWriter(new FileWriter(file))
+  }
+  
+  def writeToFile(text:String) {
+    bw.write(text + "\n")
+  }
+  def closeFile() {
+    bw.close()
   }
 
 }

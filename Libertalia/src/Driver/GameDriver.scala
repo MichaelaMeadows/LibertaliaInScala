@@ -12,6 +12,8 @@ import scala.util.Random
     playDeck = Random.shuffle(playDeck);  
     
     var gameState:GameState = new GameState;
+    val startTime = System.currentTimeMillis();
+    gameState.openStateRecording("TestingFile" + startTime);
     for(playerNum <- 1 to playerCount) {
       var player = new RandomPlayer(playerNum, true);
       player.innitDeck();
@@ -37,13 +39,14 @@ import scala.util.Random
      // gameState.innitVoyageTreasure();
      // gameState.players.ad
     }
-      for(playerNum <- 1 to playerCount) {
-        var score = gameState.getPlayerByNumber(playerNum).totalScore;
-        System.out.println(s"Player: $playerNum got final score: $score");
+     // for(playerNum <- 1 to playerCount) {
+       // var score = gameState.getPlayerByNumber(playerNum).totalScore;
+        //System.out.println(s"Player: $playerNum got final score: $score");
         //System.out.println(gameState.getPlayerByNumber(playerNum).getStateString());
         //var piratesInDen = gameState.getPlayerByNumber(playerNum).getCardsInState(DEN).size;
         //System.out.println(s"Player: $playerNum had $piratesInDen surviving pirates");
-      }
+      //}
+     // gameState.closeFile();
 
       // Once we ready to keep adding more cards, basically do this.
      // var temp = sliceStop + 6;
@@ -51,6 +54,8 @@ import scala.util.Random
      // sliceStop = temp;
 //    }
     // Order players by final score and we're done!
+    
+    System.out.println("Elampsed time in ms: " + (System.currentTimeMillis() - startTime))
   }
 }
   
