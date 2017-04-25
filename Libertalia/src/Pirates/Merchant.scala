@@ -5,6 +5,7 @@ import Pirates.PirateState._;
 import Treasure.TreasureType._;
 import Treasure.Treasure;
 import Entities.Player
+import Entities.DecisionType._;
 
 class Merchant(owningPlayer:Int) extends Pirate(21, owningPlayer) {
   
@@ -38,7 +39,7 @@ class Merchant(owningPlayer:Int) extends Pirate(21, owningPlayer) {
      
      if (treasureChoices.size > 0) {
        //System.out.println("I can sell treasure");
-       var treasureToSell = this.getMyOwner(state).makeDecision(state, List.range(0, treasureChoices.size), "Which treasure do you want to sell?");
+       var treasureToSell = this.getMyOwner(state).makeDecision(state, List.range(0, treasureChoices.size), "Which treasure do you want to sell?", BOOTY_TO_SELL.id);
          val preFilterSize = owner.treasure.size;
          // Here is the buggy logic. It should filter a max of 3 elements.
          owner.treasure = owner.treasure.filter(t => t.getType() != treasureChoices(treasureToSell));

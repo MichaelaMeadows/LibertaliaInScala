@@ -68,6 +68,20 @@ abstract class Player(playerNumber:Int, isActivePlayer:Boolean) {
     
   }
   
+  def getStateString():String = {
+    val buf = new StringBuilder;
+    buf.append(","+totalScore + ",");
+    buf.append(currentLoot);
+    personalDeck.foreach(p => buf.append("," + p.state.id));
+    // Need to make treasure constant length... because of things like monkey and cook... the upper bound on length is actually quite large.
+    treasure.foreach(t => buf.append("," + t.getType().id));
+    // Now we pad the treasure list out to 10
+    for (i <- treasure.length to 10) {
+      buf.append("," + 0)
+    }
+    return buf.toString();
+  }
+  
   def innitPirate(pirate:Pirate) {
     personalDeck(pirate.majorRank - 1) = pirate;
   }
@@ -153,9 +167,15 @@ abstract class Player(playerNumber:Int, isActivePlayer:Boolean) {
   // Generic method to solicit a choice from a player / AI
   // Takes a prompt and expects an int response
   // Might want to also take in DECISION_TYPE or something to add minimal intelligence
-  def makeDecision(state:GameState, possibleChoices:List[Int], decisionPrompt:String):Int
+  def makeDecision(state:GameState, possibleChoices:List[Int], decisionPrompt:String, decisionType:Int):Int
   
   // Return the index of the treasure you want
   def chooseTreasure(state:GameState, possibleChoices:Array[Treasure], decisionPrompt:String):Int
+  
+/*    object DecisionType extends Enumeration {
+      type Type = Value
+      val PIRATE, TREASURE, PLAYER_TO_ATTACK, PIRATE_TO_ATTACK = Value
+    }*/
+  
   
 }

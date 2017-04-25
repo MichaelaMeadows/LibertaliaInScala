@@ -2,6 +2,7 @@ package Pirates
 
 import Driver.GameState
 import Entities.Player
+import Entities.DecisionType._;
 import Pirates.PirateState._;
 import Treasure.TreasureType._;
 import Treasure.Treasure;
@@ -28,7 +29,7 @@ class Waitress(owningPlayer:Int) extends Pirate(8, owningPlayer) {
      });
 
      if (mapCount > 0) {
-       var decision = this.getMyOwner(state).makeDecision(state, List(0, 1), "Would you like to sell a map to earn 3? 0=No 1=Yes")
+       var decision = this.getMyOwner(state).makeDecision(state, List(0, 1), "Would you like to sell a map to earn 3? 0=No 1=Yes", SHOULD_SELL_MAP.id)
        if (decision == 1) {
         // System.out.println("I chose to sell a map. I previously has maps of quantity: " + mapCount);
          this.getMyOwner(state).treasure = this.getMyOwner(state).treasure.filter(t => t.getType() != MAP);

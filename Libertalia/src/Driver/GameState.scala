@@ -8,6 +8,7 @@ import Pirates.CabinBoy;
 import Pirates.Cook;
 import Pirates.Parrot;
 import Pirates.PirateState._;
+import Entities.DecisionType._;
 import Treasure.TreasureType._;
 import scala.collection.mutable.ListBuffer;
 import scala.util.Random;
@@ -25,6 +26,7 @@ class GameState {
   // TODO Players shouldn't be able to read this... I'll just leave it be for now though.
   var cardsInPlay:List[Pirate] = List();
   var turnNumber = 0;
+  var voyageNumber = 0;
   
    /*
    * Solicit cards from players
@@ -123,8 +125,8 @@ class GameState {
           var adjacentPlayersWithKillablePirates:List[Int] = getAdjacentPlayers(p.owningPlayer - 1).filter(player => player.getCardsInState(DEN).size > 0)
           .map(possible => possible.myNumber);
           if (adjacentPlayersWithKillablePirates.size > 0) {
-            var playerChoice = relevantPlayer.makeDecision(this, adjacentPlayersWithKillablePirates, "Select a player to attack");
-            var pirateToAttack = relevantPlayer.makeDecision(this, players(playerChoice - 1 ).getCardsInState(DEN), "Select a pirate to kill");
+            var playerChoice = relevantPlayer.makeDecision(this, adjacentPlayersWithKillablePirates, "Select a player to attack", PLAYER_TO_ATTACK.id);
+            var pirateToAttack = relevantPlayer.makeDecision(this, players(playerChoice - 1 ).getCardsInState(DEN), "Select a pirate to kill", PIRATE_TO_ATTACK.id);
             players(playerChoice - 1).getPirateFromDeck(pirateToAttack).state = DISCARD;
             var decider = relevantPlayer.myNumber;
             //System.out.println(s"Player: $decider attacked $playerChoice and killed $pirateToAttack");
@@ -164,6 +166,7 @@ class GameState {
       player.resetDenAndDiscard();
     })
     turnNumber = 0;
+    voyageNumber += 1;
   }
 
   def innitVoyageTreasure() = {
@@ -238,6 +241,11 @@ class GameState {
   
   // TODO - Eventually this records the state before a decision, and what decision the "player" made. 
   // This will be used to generate training data
-  def recordGameStateWithDecision() { } // Not sure what to have it take yet
+  def recordGameStateWithDecision():String = { 
+    val buf = new StringBuilder;
+    buf ++= voyageNumber + "," + turnNumber;
+    players.foreach(p => buf++= p.getStateString());
+    buf.toString();
+  }
 
 }
