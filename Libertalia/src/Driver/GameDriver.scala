@@ -22,7 +22,7 @@ import scala.util.Random
     gameState.innitVoyageTreasure();
 
     // Three rounds of six turns I believe
-   // for (round <- 0 to 2) {
+    for (round <- 0 to 2) {
      // gameState.innitVoyageTreasure();
    //   System.out.println("Round: " + round);
       for (turn <- 0 to turnCount - 1) {
@@ -30,13 +30,16 @@ import scala.util.Random
         gameState.nextTurn();
       }
       gameState.endOfVoyage();
+      gameState.innitVoyageTreasure();
+      gameState.players.foreach(p => p.addCardsToHand(playDeck.slice(0, sliceStop + 6)));
+      sliceStop += 6;
      // gameState.innitVoyageTreasure();
      // gameState.players.ad
-      
+    }
       for(playerNum <- 1 to playerCount) {
         var score = gameState.getPlayerByNumber(playerNum).totalScore;
         System.out.println(s"Player: $playerNum got final score: $score");
-        var piratesInDen = gameState.getPlayerByNumber(playerNum).getCardsInState(DEN).size;
+        //var piratesInDen = gameState.getPlayerByNumber(playerNum).getCardsInState(DEN).size;
         //System.out.println(s"Player: $playerNum had $piratesInDen surviving pirates");
       }
 
@@ -44,7 +47,7 @@ import scala.util.Random
      // var temp = sliceStop + 6;
      // player.addCardsToHand(playDeck.slice(sliceStop, temp));
      // sliceStop = temp;
-   // }
+//    }
     // Order players by final score and we're done!
   }
 }

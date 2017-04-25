@@ -83,10 +83,12 @@ abstract class Player(playerNumber:Int, isActivePlayer:Boolean) {
     // 2 is actually the begger (3 - 1)
     //addCardToHand(personalDeck(3 - 1));
     
+    cardsToAdd.foreach(c => addCardToHand(personalDeck(c - 1)));
+    
     //ANYTHING GOES
-    for (i <- 0 to 29) {
-     addCardToHand(personalDeck(i));
-    }
+    //for (i <- 0 to 29) {
+     //addCardToHand(personalDeck(i));
+    //}
   }
   
   /*
