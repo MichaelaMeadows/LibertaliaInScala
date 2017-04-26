@@ -28,6 +28,7 @@ class GameState {
   var cardsInPlay:List[Pirate] = List();
   var turnNumber = 0;
   var voyageNumber = 0;
+  var totalDecisions = 0;
   
 
   var file:File = null;
@@ -252,6 +253,16 @@ class GameState {
   def recordGameStateWithDecision():String = { 
     val buf = new StringBuilder;
     buf ++= voyageNumber + "," + turnNumber;
+    treasure.foreach(day => {
+      day.foreach(t => {
+        if (t != null) {
+           buf ++= ","+t.getType().id;
+        } else {
+          buf ++= ","+(-1);
+        }
+      })
+    });
+    
     players.foreach(p => buf++= p.getStateString());
     buf.toString();
   }
@@ -265,6 +276,7 @@ class GameState {
     bw.write(text + "\n")
   }
   def closeFile() {
+    bw.write("Total decisions: " + totalDecisions)
     bw.close()
   }
 

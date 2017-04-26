@@ -4,6 +4,13 @@ import Pirates.PirateState._
 import scala.util.Random
   object HelloWorld {
   def main(args: Array[String]): Unit = {
+    for (i <- 1 to 1) {
+      runGame();
+    }
+  }
+  
+  def runGame() {
+    val startTime = System.currentTimeMillis();
     val playerCount: Int = 6;// Hard coding this for now args(0).toInt;
     val roundCount:Int = 3;
     val turnCount:Int = 6;
@@ -12,8 +19,7 @@ import scala.util.Random
     playDeck = Random.shuffle(playDeck);  
     
     var gameState:GameState = new GameState;
-    val startTime = System.currentTimeMillis();
-    gameState.openStateRecording("TestingFile" + startTime);
+    gameState.openStateRecording("RandomTest-" + startTime + "-" + Random.nextInt(50));
     for(playerNum <- 1 to playerCount) {
       var player = new RandomPlayer(playerNum, true);
       player.innitDeck();
@@ -46,7 +52,7 @@ import scala.util.Random
         //var piratesInDen = gameState.getPlayerByNumber(playerNum).getCardsInState(DEN).size;
         //System.out.println(s"Player: $playerNum had $piratesInDen surviving pirates");
       //}
-     // gameState.closeFile();
+      gameState.closeFile();
 
       // Once we ready to keep adding more cards, basically do this.
      // var temp = sliceStop + 6;
@@ -57,5 +63,6 @@ import scala.util.Random
     
     System.out.println("Elampsed time in ms: " + (System.currentTimeMillis() - startTime))
   }
+  
 }
   
