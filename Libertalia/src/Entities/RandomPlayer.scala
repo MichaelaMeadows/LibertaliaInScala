@@ -9,7 +9,7 @@ class RandomPlayer(playerNumber:Int, isActivePlayer:Boolean) extends Player (pla
   val r = scala.util.Random;
   
   def playCard(state:GameState):Pirate = {
-    state.totalDecisions += 1;
+    //state.totalDecisions += 1;
     val piratesInHand = this.getCardsInState(HAND);
 
     //System.out.println("Number of options:" + piratesInHand.size);
@@ -17,26 +17,26 @@ class RandomPlayer(playerNumber:Int, isActivePlayer:Boolean) extends Player (pla
     
     var choice:Pirate = this.getPirateFromDeck(randomPirate);
     choice.state = IN_PLAY;
-    state.writeToFile(state.recordGameStateWithDecision() + "," + playerNumber + "," + DecisionType.PIRATE.id + "," + choice.majorRank);
+    state.recordDecision(playerNumber + "," + state.recordGameStateWithDecision() + "," + DecisionType.PIRATE.id + "," + choice.majorRank);
     return choice;
   }
   
   def makeDecision(state:GameState, possibleChoices:List[Int], decisionPrompt:String, decisionType:Int):Int = {
-    state.totalDecisions += 1;
+    //state.totalDecisions += 1;
     var choice = possibleChoices(r.nextInt(possibleChoices.size));
-    state.writeToFile(state.recordGameStateWithDecision() + "," + playerNumber + "," + decisionType + "," + choice);
+    state.recordDecision(playerNumber + "," + state.recordGameStateWithDecision() + "," + decisionType + "," + choice);
     choice;
   }
   
   def chooseTreasure(state:GameState, possibleChoices:Array[Treasure], decisionPrompt:String):Int = {
-    state.totalDecisions += 1;
+    //state.totalDecisions += 1;
     for (i <- 0 to (possibleChoices.size - 1)) {
       if (possibleChoices(i) != null) {
-        state.writeToFile(state.recordGameStateWithDecision() + "," + playerNumber + "," + DecisionType.TREASURE.id + "," + i);
+        state.recordDecision(playerNumber + "," + state.recordGameStateWithDecision() + "," + DecisionType.TREASURE.id + "," + i);
         return i;
       }
     }
-    state.writeToFile(state.recordGameStateWithDecision() + "," + playerNumber + "," + DecisionType.TREASURE.id + "," + -1);
+    state.recordDecision(playerNumber + "," + state.recordGameStateWithDecision() + "," + DecisionType.TREASURE.id + "," + -1);
     return -1;
   }
   

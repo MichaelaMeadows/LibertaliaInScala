@@ -21,6 +21,7 @@ class GameState {
   var activePlayers:Int = 0;
   // 6 turns of up to 6 players
   var treasure:Array[Array[Treasure]] = Array.ofDim[Treasure](6, 6);
+  var decisions:Array[String] = Array.ofDim(300);
   var fullTreasureList:List[Treasure] = List();
   var nextTreasurePiece = 0;
   // Once populated, this is assumed to be ordered... should use a structure to enforce that, haha.
@@ -272,11 +273,14 @@ class GameState {
     bw = new BufferedWriter(new FileWriter(file))
   }
   
-  def writeToFile(text:String) {
-    bw.write(text + "\n")
+  def recordDecision(text:String) {
+    decisions(totalDecisions) = text;
+    totalDecisions += 1;
+   // bw.write(text + "\n")
   }
   def closeFile() {
-    bw.write("Total decisions: " + totalDecisions)
+    bw.write(totalDecisions + "\n")
+    decisions.foreach(d => bw.write(d+"\n"));
     bw.close()
   }
 

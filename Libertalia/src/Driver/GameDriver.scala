@@ -3,10 +3,16 @@ import Entities.RandomPlayer
 import Pirates.PirateState._
 import scala.util.Random
   object HelloWorld {
+  val map = scala.collection.mutable.HashMap.empty[Int,Int];
+  
   def main(args: Array[String]): Unit = {
     for (i <- 1 to 1) {
       runGame();
     }
+    map.foreach(p => {
+      System.out.println(p._1 + " won: " + (p._2/ 20000f));
+   });
+    
   }
   
   def runGame() {
@@ -46,14 +52,18 @@ import scala.util.Random
      // gameState.players.ad
     }
      // for(playerNum <- 1 to playerCount) {
-       // var score = gameState.getPlayerByNumber(playerNum).totalScore;
+        //var score = gameState.getPlayerByNumber(playerNum).totalScore;
         //System.out.println(s"Player: $playerNum got final score: $score");
         //System.out.println(gameState.getPlayerByNumber(playerNum).getStateString());
         //var piratesInDen = gameState.getPlayerByNumber(playerNum).getCardsInState(DEN).size;
         //System.out.println(s"Player: $playerNum had $piratesInDen surviving pirates");
-      //}
+     // }
       gameState.closeFile();
-
+      
+     // System.out.println("Winnder:"+gameState.players.sortWith((x,y) => x.totalScore > y.totalScore)(0).myNumber);
+      val winner = gameState.players.sortWith((x,y) => x.totalScore > y.totalScore)(0).myNumber;
+      map.put(winner, map.getOrElse(winner, 0) + 1);
+      
       // Once we ready to keep adding more cards, basically do this.
      // var temp = sliceStop + 6;
      // player.addCardsToHand(playDeck.slice(sliceStop, temp));
