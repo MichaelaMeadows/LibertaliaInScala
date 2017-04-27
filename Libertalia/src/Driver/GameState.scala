@@ -253,8 +253,12 @@ class GameState {
   // This will be used to generate training data
   def recordGameStateWithDecision():String = { 
     val buf = new StringBuilder;
+    //buf ++= "Player, voyage, turn";
     buf ++= voyageNumber + "," + turnNumber;
+    
+    //buf ++= "36 treasures";
     treasure.foreach(day => {
+      
       day.foreach(t => {
         if (t != null) {
            buf ++= ","+t.getType().id;
@@ -263,8 +267,9 @@ class GameState {
         }
       })
     });
-    
+    //buf ++= "180 pirates";
     players.foreach(p => buf++= p.getStateString());
+    //buf ++= "type and choice";
     buf.toString();
   }
   
@@ -278,10 +283,37 @@ class GameState {
     totalDecisions += 1;
    // bw.write(text + "\n")
   }
-  def closeFile() {
-    bw.write(totalDecisions + "\n")
-    decisions.foreach(d => bw.write(d+"\n"));
+  def closeFile(winner:Int) {
+   // bw.write(totalDecisions + "\n")
+   //////
+    for (x <- 0 to (totalDecisions -1 )) {
+      if (decisions(x).take(1).equals(""+winner)) {
+        decisions(x) = decisions(x) + ",1";
+      } else {
+        decisions(x) = decisions(x) + ",0";
+      }
+      
+    }
+    
+   //////
+    
+    for (i <- 0 to (totalDecisions -1 )) {
+      bw.write(decisions(i)+"\n")
+    }
+
+    //decisions.foreach(d => {
+      //if (d == null) {
+       // return;
+      //}
+      //bw.write(d+"\n")
+      //});
     bw.close()
+/*    totalDecisions = 0;
+    turnNumber = 0;
+    voyageNumber = 0;
+    totalDecisions = 0;
+    nextTreasurePiece = 0;
+    players = List();*/
   }
 
 }

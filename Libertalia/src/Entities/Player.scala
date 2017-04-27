@@ -70,10 +70,12 @@ abstract class Player(playerNumber:Int, isActivePlayer:Boolean) {
   
   def getStateString():String = {
     val buf = new StringBuilder;
-    buf.append(","+totalScore + ",");
-    buf.append(currentLoot);
+   // buf ++= "total, currrent";
+    buf.append(","+totalScore + "," + currentLoot);
+    //buf.append("Pirates");
     personalDeck.foreach(p => buf.append("," + p.state.id));
     // Need to make treasure constant length... because of things like monkey and cook... the upper bound on length is actually quite large.
+    //buf ++= "treasures";
     treasure.foreach(t => buf.append("," + t.getType().id));
     // Now we pad the treasure list out to 10
     for (i <- treasure.length to 10) {
