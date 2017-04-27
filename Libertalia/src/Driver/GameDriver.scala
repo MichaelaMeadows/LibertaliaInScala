@@ -8,7 +8,7 @@ import scala.util.Random
   def main(args: Array[String]): Unit = {
     var gameState:GameState = new GameState;
     //gameState.openStateRecording("BigOutput.csv");
-    for (i <- 1 to 1000) {
+    for (i <- 1 to 1) {
       runGame(i);
     }
     //map.foreach(p => {

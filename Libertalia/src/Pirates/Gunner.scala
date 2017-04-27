@@ -28,6 +28,7 @@ class Gunner(owningPlayer:Int) extends Pirate(15, owningPlayer) {
       var pirateToAttack = this.getMyOwner(state).makeDecision(state, state.getPlayerByNumber(playerChoice).getCardsInState(DEN), "Select a pirate to kill", PIRATE_TO_ATTACK.id);
       state.getPlayerByNumber(playerChoice).getPirateFromDeck(pirateToAttack).state = DISCARD;
     }
+    this.getMyOwner(state).currentLoot -= 3;
    }
    
    def nightActivity(state: GameState) {

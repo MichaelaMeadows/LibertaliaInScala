@@ -118,11 +118,19 @@ class GameState {
   }
   
   // This can be executed 0-2 times depending on the pirate being played
-  def selectAndUpdateTreasure(p:Pirate) = {
+  def selectAndUpdateTreasure(p:Pirate):Unit = {
     var relevantPlayer = p.getMyOwner(this);
+    
+    if (treasure(turnNumber).filter(t => t != null).size == 0) {
+      //System.out.println("No valid treasures");
+      return None;
+    }
+    
+      // TODO Maybe don't even ask if there's no valid treasure?
       var treasureChoice = relevantPlayer.chooseTreasure(this, treasure(turnNumber), "");
+      
       // Do a check to make sure it's valid?
-      if (treasureChoice != -1) {
+    //  if (treasureChoice != -1) {
         var selectedTreasure = treasure(turnNumber)(treasureChoice);
         if (selectedTreasure.getType() == OFFICER) {
           // Kill the poor pirate
@@ -144,7 +152,7 @@ class GameState {
         }
           relevantPlayer.treasure = relevantPlayer.treasure:+selectedTreasure;
           treasure(turnNumber)(treasureChoice) = null;
-      }
+     // }
   }
   
   def endOfVoyage() {
