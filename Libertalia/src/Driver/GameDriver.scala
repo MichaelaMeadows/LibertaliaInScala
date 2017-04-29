@@ -8,8 +8,8 @@ import scala.util.Random
   def main(args: Array[String]): Unit = {
     var gameState:GameState = new GameState;
     //gameState.openStateRecording("BigOutput.csv");
-    
-    for (i <- 1 to 1) {
+
+    for (i <- 1 to 50) {
       runGame(i);
     }
     //map.foreach(p => {
@@ -64,7 +64,8 @@ import scala.util.Random
      // }
       
      // System.out.println("Winnder:"+gameState.players.sortWith((x,y) => x.totalScore > y.totalScore)(0).myNumber);
-      val winner = gameState.players.sortWith((x,y) => x.totalScore > y.totalScore)(0).myNumber;
+      val winner = gameState.players.sortWith((x,y) => x.totalScore > y.totalScore)(0).totalScore;
+      //gameState.players.foreach(p => println(p.totalScore));
       //map.put(winner, map.getOrElse(winner, 0) + 1);
       System.out.println("Winnder was: " + winner);
       gameState.closeFile(winner);
@@ -76,7 +77,7 @@ import scala.util.Random
 //    }
     // Order players by final score and we're done!
     
-    System.out.println("Elampsed time in ms: " + (System.currentTimeMillis() - startTime))
+    //System.out.println("Elampsed time in ms: " + (System.currentTimeMillis() - startTime))
   }
   
 }

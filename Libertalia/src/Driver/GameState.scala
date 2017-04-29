@@ -271,7 +271,7 @@ class GameState {
         if (t != null) {
            buf ++= ","+t.getType().id;
         } else {
-          buf ++= ","+(-1);
+          buf ++= ","+(0);
         }
       })
     });
