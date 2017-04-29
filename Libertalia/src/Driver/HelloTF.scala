@@ -5,26 +5,35 @@ import org.tensorflow.Session;
 import org.tensorflow.Tensor;
 import org.tensorflow.SavedModelBundle;
 import org.tensorflow.TensorFlow;
+import java.io._;
 
 object HelloTF {
 
   def main(args: Array[String]): Unit = {
-      var g:Graph = new Graph()
-      val value:String = "Hello from " + TensorFlow.version();
+     // var g:Graph = new Graph()
 
-      // Construct the computation graph with a single operation, a constant
-      // named "MyConst" with a value "value".
-      var t:Tensor = Tensor.create(value.getBytes("UTF-8"));
-      g.opBuilder("Const", "MyConst").setAttr("dtype", t.dataType()).setAttr("value", t).build();
-
-      // Execute the "MyConst" operation in a Session.
-      var s:Session = new Session(g);
-      var output:Tensor = s.runner().fetch("MyConst").run().get(0);
-      System.out.println(new String(output.bytesValue(), "UTF-8"));
-      var trainedModel:SavedModelBundle = SavedModelBundle.load("/tmp/mymodel", "serve");
+    //  var s:Session = new Session(g);
+      //var output:Tensor = s.runner().fetch("MyConst").run().get(0);
+      //System.out.println(new String(output.bytesValue(), "UTF-8"));
+      //System.out.println(new File(".").getCanonicalPath());
+     // System.out.println(new File("C:/model/savedModel/qefqefqegqg").getCanonicalPath());
+      var trainedModel:SavedModelBundle = SavedModelBundle.load("C:/model/test/backup", "serve");
       var session:Session = trainedModel.session();
+      var matrix:Array[Array[Float]] = Array.ofDim[Float](1, 299);
+      var input:Tensor = Tensor.create(matrix);
+      var g:Graph = trainedModel.graph();
+      
+      var output:Array[Array[Float]] = Array.ofDim[Float](1, 2);
+      
+      session.runner().feed("dnn/input_from_feature_columns/input_from_feature_columns/concat", input)
+      .fetch("dnn/binary_logistic_head/predictions/probabilities").run()
+      .get(0).copyTo(output);
+      
+      println(output(0).foreach(f => println(f)));
+
+      //session.Runner
       //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-      var inputs:Tensor = Tensor.create(x$1, x$2, x$3)//new Tensor(tensorflow.DT_FLOAT, new TensorShape(2,5));
+    /*  var inputs:Tensor = Tensor.create(x$1, x$2, x$3)//new Tensor(tensorflow.DT_FLOAT, new TensorShape(2,5));
       var x:FloatBuffer = inputs.createBuffer();
       x.put(Array(1f,2f,3f,4f,5f));
       x.put(Array(1f,2f,3f,4f,5f));
@@ -42,6 +51,6 @@ object HelloTF {
       FloatBuffer output = outputs.get(0).createBuffer();
       for (k <- 0 to output.limit()){
         System.out.println("prediction=" + output.get(k));
-      }
+      }*/
   }
 }

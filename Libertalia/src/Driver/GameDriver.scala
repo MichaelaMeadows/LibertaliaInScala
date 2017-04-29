@@ -9,7 +9,7 @@ import scala.util.Random
     var gameState:GameState = new GameState;
     //gameState.openStateRecording("BigOutput.csv");
 
-    for (i <- 1 to 50) {
+    for (i <- 1 to 1) {
       runGame(i);
     }
     //map.foreach(p => {
