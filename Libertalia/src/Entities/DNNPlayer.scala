@@ -10,12 +10,12 @@ class DNNPlayer(playerNumber:Int, isActivePlayer:Boolean) extends Player (player
   
   def playCard(state:GameState):Pirate = {
     val piratesInHand = this.getCardsInState(HAND);
-    var currentStateMatrix:Array[Array[Float]] = Array.ofDim(piratesInHand.size, 299);
+    var currentStateMatrix:Array[Array[Float]] = Array.ofDim(piratesInHand.size, 293);
     var currentStateVector:Array[Float] = generateStateVector(state, DecisionType.PIRATE.id);
     
     for (x <- 0 to (piratesInHand.size -1)) {
       currentStateMatrix(x) = currentStateVector.clone();
-      currentStateMatrix(x)(298) = piratesInHand(x);
+      currentStateMatrix(x)(292) = piratesInHand(x);
     }
 
     var results = state.tfAdapter.getExpectedMoveValues(currentStateMatrix);
@@ -24,7 +24,7 @@ class DNNPlayer(playerNumber:Int, isActivePlayer:Boolean) extends Player (player
     var index = 0;
     var bestScore:Float = 0;
     results.foreach(r => {
-      if (r(0) > bestScore) {
+      if (r(1) > bestScore) {
         bestScore = r(1);
         bestIndex = index;
       }
@@ -42,6 +42,7 @@ class DNNPlayer(playerNumber:Int, isActivePlayer:Boolean) extends Player (player
       println("Returned Rank")
       throw new Exception("FAIL");
     }
+    state.recordDecision(playerNumber + "," + state.recordGameStateWithDecision() + "," + DecisionType.PIRATE.id + "," + pirate.majorRank);
     return pirate;
   }
   
@@ -66,7 +67,7 @@ class DNNPlayer(playerNumber:Int, isActivePlayer:Boolean) extends Player (player
   
   // This makes me feel bad becasue of how inefficient it is....  TODO TODO TODO
   def generateStateVector(state:GameState, decisionId:Int):Array[Float] = {
-    var vector:Array[Float] = Array.ofDim(299);
+    var vector:Array[Float] = Array.ofDim(293);
     var index = 0;
     var stateString = (playerNumber + "," + state.recordGameStateWithDecision() + "," + decisionId).split(",");
     stateString.foreach(s => {

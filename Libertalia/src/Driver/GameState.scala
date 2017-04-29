@@ -15,21 +15,19 @@ import scala.util.Random;
 import java.io._;
 
 class GameState {
-  
-  // Ordering is important for cards that interact with players adjacent to you.
-  var players:List[Player] = List();
-  var activePlayers:Int = 0;
-  // 6 turns of up to 6 players
-  var treasure:Array[Array[Treasure]] = Array.ofDim[Treasure](6, 6);
-  var decisions:Array[String] = Array.ofDim(300);
-  var fullTreasureList:List[Treasure] = List();
-  var nextTreasurePiece = 0;
   // Once populated, this is assumed to be ordered... should use a structure to enforce that, haha.
   // TODO Players shouldn't be able to read this... I'll just leave it be for now though.
   var cardsInPlay:List[Pirate] = List();
+  var treasure:Array[Array[Treasure]] = Array.ofDim[Treasure](6, 6);
+  var decisions:Array[String] = Array.ofDim(300);
+  var fullTreasureList:List[Treasure] = List();
+  var players:List[Player] = List();
+  var activePlayers:Int = 0;
   var turnNumber = 0;
   var voyageNumber = 0;
   var totalDecisions = 0;
+  var nextTreasurePiece = 0;
+  
   var tfAdapter = new TFAdapter();
   
 
@@ -157,7 +155,6 @@ class GameState {
   }
   
   def endOfVoyage() {
-    
     /*
      * We must do the Topman check before the dens are cleared.
      */
@@ -187,6 +184,20 @@ class GameState {
     turnNumber = 0;
     voyageNumber += 1;
   }
+  
+  def resetState() {
+    cardsInPlay = List();
+    treasure = Array.ofDim[Treasure](6, 6);
+    decisions = Array.ofDim(300);
+    fullTreasureList= List();
+    players = List();
+    activePlayers= 0;
+    turnNumber = 0;
+    voyageNumber = 0;
+    totalDecisions = 0;
+    nextTreasurePiece = 0;
+  }
+  
 
   def innitVoyageTreasure() = {
     treasure = Array.ofDim[Treasure](6, 6);

@@ -11,11 +11,11 @@ import scala.util.Random
     var gameState:GameState = new GameState;
     //gameState.openStateRecording("BigOutput.csv");
 
-    for (i <- 1 to 1) {
+    for (i <- 1 to 800) {
       runGame(i);
     }
     map.foreach(p => {
-      System.out.println(p._1 + " won: " + (p._2/ 300f));
+      System.out.println(p._1 + " won: " + (p._2/ 800f));
    });
     
   }
@@ -35,13 +35,13 @@ import scala.util.Random
     
     var player:Player = null;
     ////Setup DNN player once
-    //  var player:Player = new DNNPlayer(1, true);
-     // player.innitDeck();
+    player = new DNNPlayer(1, true);
+    player.innitDeck();
       // Each player stars with the same 9 cards
-     // player.addCardsToHand(playDeck.slice(0, sliceStop));
-     // gameState.addPlayer(player);
+    player.addCardsToHand(playDeck.slice(0, sliceStop));
+    gameState.addPlayer(player);
     ////////
-    for(playerNum <- 1 to playerCount) {
+    for(playerNum <- 2 to playerCount) {
       player = new RandomPlayer(playerNum, true);
       player.innitDeck();
       // Each player stars with the same 9 cards

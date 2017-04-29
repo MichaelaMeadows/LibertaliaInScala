@@ -8,7 +8,7 @@ import org.tensorflow.TensorFlow;
 import java.io._;
 
 class TFAdapter {
-  val trainedModel:SavedModelBundle = SavedModelBundle.load("C:/model/test/pirate_1", "serve");
+  val trainedModel:SavedModelBundle = SavedModelBundle.load("C:/model/test/pirate_3", "serve");
   val session:Session = trainedModel.session();
   val g:Graph = trainedModel.graph();
   
@@ -32,7 +32,7 @@ object HelloTF {
   def main(args: Array[String]): Unit = {
       var trainedModel:SavedModelBundle = SavedModelBundle.load("C:/model/test/pirate_1", "serve");
       var session:Session = trainedModel.session();
-      var matrix:Array[Array[Float]] = Array.ofDim[Float](2, 299);
+      var matrix:Array[Array[Float]] = Array.ofDim[Float](2, 293);
       matrix(0) = test2Value;
       matrix(1) = testValue;
       var input:Tensor = Tensor.create(matrix);
