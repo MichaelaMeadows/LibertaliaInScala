@@ -155,7 +155,7 @@ abstract class Player(playerNumber:Int, isActivePlayer:Boolean) {
         mapsFound += 1;
       }
       })
-      if (mapsFound > 3) {
+      if (mapsFound >= 3) {
         //System.out.println("I GOT ENOUGH MAPS");
         treasureValue += 12;
       }
