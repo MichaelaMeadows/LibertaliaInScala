@@ -30,6 +30,7 @@ class GameState {
   var turnNumber = 0;
   var voyageNumber = 0;
   var totalDecisions = 0;
+  var tfAdapter = new TFAdapter();
   
 
   var file:File = null;

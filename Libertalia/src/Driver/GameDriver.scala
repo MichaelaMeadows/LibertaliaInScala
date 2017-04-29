@@ -1,5 +1,7 @@
 package Driver
+import Entities.Player
 import Entities.RandomPlayer
+import Entities.DNNPlayer
 import Pirates.PirateState._
 import scala.util.Random
   object HelloWorld {
@@ -9,12 +11,12 @@ import scala.util.Random
     var gameState:GameState = new GameState;
     //gameState.openStateRecording("BigOutput.csv");
 
-    for (i <- 1 to 1) {
+    for (i <- 1 to 300) {
       runGame(i);
     }
-    //map.foreach(p => {
-    //  System.out.println(p._1 + " won: " + (p._2/ 20000f));
-   //});
+    map.foreach(p => {
+      System.out.println(p._1 + " won: " + (p._2/ 300f));
+   });
     
   }
   
@@ -30,8 +32,16 @@ import scala.util.Random
     var gameState:GameState = new GameState;
     gameState.openStateRecording("RandomTest-"+iteration);
     //gameState.openStateRecording("RandomTest-" + startTime + "-" + Random.nextInt(50));
-    for(playerNum <- 1 to playerCount) {
-      var player = new RandomPlayer(playerNum, true);
+    
+    ////Setup DNN player once
+      var player:Player = new DNNPlayer(1, true);
+      player.innitDeck();
+      // Each player stars with the same 9 cards
+      player.addCardsToHand(playDeck.slice(0, sliceStop));
+      gameState.addPlayer(player);
+    ////////
+    for(playerNum <- 2 to playerCount) {
+      player = new RandomPlayer(playerNum, true);
       player.innitDeck();
       // Each player stars with the same 9 cards
       player.addCardsToHand(playDeck.slice(0, sliceStop));
@@ -64,10 +74,10 @@ import scala.util.Random
      // }
       
      // System.out.println("Winnder:"+gameState.players.sortWith((x,y) => x.totalScore > y.totalScore)(0).myNumber);
-      val winner = gameState.players.sortWith((x,y) => x.totalScore > y.totalScore)(0).totalScore;
+      val winner = gameState.players.sortWith((x,y) => x.totalScore > y.totalScore)(0).myNumber;
       //gameState.players.foreach(p => println(p.totalScore));
-      //map.put(winner, map.getOrElse(winner, 0) + 1);
-      System.out.println("Winnder was: " + winner);
+      map.put(winner, map.getOrElse(winner, 0) + 1);
+      System.out.println("Winner was: " + winner);
       gameState.closeFile(winner);
       
       // Once we ready to keep adding more cards, basically do this.
