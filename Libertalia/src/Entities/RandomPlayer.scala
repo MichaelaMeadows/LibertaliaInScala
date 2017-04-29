@@ -16,7 +16,7 @@ class RandomPlayer(playerNumber:Int, isActivePlayer:Boolean) extends Player (pla
     var randomPirate = piratesInHand(r.nextInt(piratesInHand.size));
     
     var choice:Pirate = this.getPirateFromDeck(randomPirate);
-    choice.state = IN_PLAY;
+    //choice.state = IN_PLAY;
     state.recordDecision(playerNumber + "," + state.recordGameStateWithDecision() + "," + DecisionType.PIRATE.id + "," + choice.majorRank);
     return choice;
   }
@@ -24,7 +24,7 @@ class RandomPlayer(playerNumber:Int, isActivePlayer:Boolean) extends Player (pla
   def makeDecision(state:GameState, possibleChoices:List[Int], decisionPrompt:String, decisionType:Int):Int = {
     //state.totalDecisions += 1;
     var choice = possibleChoices(r.nextInt(possibleChoices.size));
-    state.recordDecision(playerNumber + "," + state.recordGameStateWithDecision() + "," + decisionType + "," + choice);
+   // state.recordDecision(playerNumber + "," + state.recordGameStateWithDecision() + "," + decisionType + "," + choice);
     choice;
   }
   
@@ -32,7 +32,7 @@ class RandomPlayer(playerNumber:Int, isActivePlayer:Boolean) extends Player (pla
     //state.totalDecisions += 1;
     for (i <- 0 to (possibleChoices.size - 1)) {
       if (possibleChoices(i) != null) {
-        state.recordDecision(playerNumber + "," + state.recordGameStateWithDecision() + "," + DecisionType.TREASURE.id + "," + i);
+       // state.recordDecision(playerNumber + "," + state.recordGameStateWithDecision() + "," + DecisionType.TREASURE.id + "," + i);
         return i;
       }
     }

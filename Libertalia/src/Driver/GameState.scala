@@ -227,6 +227,7 @@ class GameState {
   def getCardsInOrder():List[Pirate] = {
     val cards = new ListBuffer[Pirate];
     this.players.foreach((p:Player) => cards+=p.playCard(this));
+    cards.foreach(c => c.state = IN_PLAY);
     return cards.toList.sorted;
   }
   
