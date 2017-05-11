@@ -6,23 +6,23 @@ import Pirates.PirateState._
 import scala.util.Random
   object HelloWorld {
   val map = scala.collection.mutable.HashMap.empty[Int,Int];
-  
+  val GAME_COUNT = 800;
   def main(args: Array[String]): Unit = {
     var gameState:GameState = new GameState;
     //gameState.openStateRecording("BigOutput.csv");
 
-    for (i <- 1 to 800) {
+    for (i <- 1 to GAME_COUNT) {
       runGame(i);
     }
     map.foreach(p => {
-      System.out.println(p._1 + " won: " + (p._2/ 800f));
-   });
+      System.out.println(p._1 + " won: " + (p._2/ GAME_COUNT.toFloat));
+    });
     
   }
   
   def runGame(iteration:Int) {
     val startTime = System.currentTimeMillis();
-    val playerCount: Int = 6;// Hard coding this for now args(0).toInt;
+    val playerCount: Int = 6;
     val roundCount:Int = 3;
     val turnCount:Int = 6;
     var playDeck:List[Int] = (1 to 30).toList
@@ -31,28 +31,14 @@ import scala.util.Random
     
     var gameState:GameState = new GameState;
     gameState.openStateRecording("RandomTest-"+iteration);
-    //gameState.openStateRecording("RandomTest-" + startTime + "-" + Random.nextInt(50));
     
-    var player:Player = null;
-    ////Setup DNN player once
-    player = new DNNPlayer(1, true);
-    player.innitDeck();
-      // Each player stars with the same 9 cards
-    player.addCardsToHand(playDeck.slice(0, sliceStop));
-    gameState.addPlayer(player);
-    ////////
-    for(playerNum <- 2 to playerCount) {
-      player = new RandomPlayer(playerNum, true);
-      player.innitDeck();
-      // Each player stars with the same 9 cards
-      player.addCardsToHand(playDeck.slice(0, sliceStop));
-      gameState.addPlayer(player);
-    }
+    innitPlayers(gameState, playDeck);
+    
+    // Always assumes 6 players
     gameState.innitVoyageTreasure();
     //System.out.println(gameState.getPlayerByNumber(1).getStateString());
     // Three rounds of six turns I believe
     for (round <- 0 to 2) {
-     // gameState.innitVoyageTreasure();
    //   System.out.println("Round: " + round);
       for (turn <- 0 to turnCount - 1) {
         //System.out.println("Turn: " + turn);
@@ -80,16 +66,32 @@ import scala.util.Random
       map.put(winner, map.getOrElse(winner, 0) + 1);
       System.out.println("Winner was: " + winner);
       gameState.closeFile(winner);
-      
-      // Once we ready to keep adding more cards, basically do this.
-     // var temp = sliceStop + 6;
-     // player.addCardsToHand(playDeck.slice(sliceStop, temp));
-     // sliceStop = temp;
-//    }
-    // Order players by final score and we're done!
     
     //System.out.println("Elampsed time in ms: " + (System.currentTimeMillis() - startTime))
   }
   
-}
+  def innitPlayers(gameState:GameState, playDeck:List[Int]) {
+    var cards = playDeck.slice(0, 9);
+    addToPlayState(gameState, new DNNPlayer(1, true), cards);
+    addToPlayState(gameState, new RandomPlayer(2, true), cards);
+    addToPlayState(gameState, new RandomPlayer(3, true), cards);
+    addToPlayState(gameState, new RandomPlayer(4, true), cards);
+    addToPlayState(gameState, new RandomPlayer(5, true), cards);
+    addToPlayState(gameState, new RandomPlayer(6, true), cards);
+  }
   
+  def addToPlayState(gameState:GameState, player:Player, cards:List[Int]) {
+    player.innitDeck();
+    player.addCardsToHand(cards);
+    gameState.addPlayer(player);
+  }
+  
+}
+     /* for(playerNum <- 2 to playerCount) {
+      player = new RandomPlayer(playerNum, true);
+      player.innitDeck();
+      // Each player stars with the same 9 cards
+      player.addCardsToHand(playDeck.slice(0, sliceStop));
+      gameState.addPlayer(player);
+    }*/
+    
