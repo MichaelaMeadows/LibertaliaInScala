@@ -27,7 +27,7 @@ class GameState {
   var voyageNumber = 0;
   var totalDecisions = 0;
   var nextTreasurePiece = 0;
-  
+  // I do not want to reset the tfAdapter since that's expensive.
   var tfAdapter = new TFAdapter();
   
 

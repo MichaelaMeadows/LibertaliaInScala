@@ -8,7 +8,7 @@ class DNNPlayer(playerNumber:Int, isActivePlayer:Boolean) extends Player (player
   
   val r = scala.util.Random;
   
-  def playCard(state:GameState):Pirate = {
+ /* def playCard(state:GameState):Pirate = {
     val piratesInHand = this.getCardsInState(HAND);
     var currentStateMatrix:Array[Array[Float]] = Array.ofDim(piratesInHand.size, 293);
     var currentStateVector:Array[Float] = generateStateVector(state, DecisionType.PIRATE.id);
@@ -44,6 +44,19 @@ class DNNPlayer(playerNumber:Int, isActivePlayer:Boolean) extends Player (player
     }
     state.recordDecision(playerNumber + "," + state.recordGameStateWithDecision() + "," + DecisionType.PIRATE.id + "," + pirate.majorRank);
     return pirate;
+  }*/
+  
+  def playCard(state:GameState):Pirate = {
+    //state.totalDecisions += 1;
+    val piratesInHand = this.getCardsInState(HAND);
+
+    //System.out.println("Number of options:" + piratesInHand.size);
+    var randomPirate = piratesInHand(r.nextInt(piratesInHand.size));
+    
+    var choice:Pirate = this.getPirateFromDeck(randomPirate);
+    //choice.state = IN_PLAY;
+   // state.recordDecision(playerNumber + "," + state.recordGameStateWithDecision() + "," + DecisionType.PIRATE.id + "," + choice.majorRank);
+    return choice;
   }
   
   def makeDecision(state:GameState, possibleChoices:List[Int], decisionPrompt:String, decisionType:Int):Int = {
@@ -54,20 +67,39 @@ class DNNPlayer(playerNumber:Int, isActivePlayer:Boolean) extends Player (player
   }
   
   def chooseTreasure(state:GameState, possibleChoices:Array[Treasure], decisionPrompt:String):Int = {
-      for (i <- 0 to (possibleChoices.size - 1)) {
-      if (possibleChoices(i) != null) {
-        state.recordDecision(playerNumber + "," + state.recordGameStateWithDecision() + "," + DecisionType.TREASURE.id + "," + i);
-        return i;
+    
+    var validIndex:List[Int] = List();
+    for (v <- 0 to (possibleChoices.size - 1)) {
+      if (possibleChoices(v) != null) {
+        validIndex = validIndex.+:(v);
       }
     }
-    System.out.println("DISASTER!!!!!")
-   // state.recordDecision(playerNumber + "," + state.recordGameStateWithDecision() + "," + DecisionType.TREASURE.id + "," + -1);
-    return -1;
+    
+    var currentStateMatrix:Array[Array[Float]] = Array.ofDim(validIndex.size, 107);
+    var currentStateVector:Array[Float] = generateStateVector(state, DecisionType.PIRATE.id);
+    
+    for (x <- 0 to (validIndex.size -1)) {
+      currentStateMatrix(x) = currentStateVector.clone();
+      currentStateMatrix(x)(106) = validIndex(x);
+    }
+
+    var results = state.tfAdapter.getExpectedMoveValues(currentStateMatrix);
+    var bestIndex = 0;
+    var index = 0;
+    var bestScore:Float = 0;
+    results.foreach(r => {
+      if (r(1) > bestScore) {
+        bestScore = r(1);
+        bestIndex = index;
+      }
+      index += 1;
+    });
+    validIndex(bestIndex);
   }
   
   // This makes me feel bad becasue of how inefficient it is....  TODO TODO TODO
   def generateStateVector(state:GameState, decisionId:Int):Array[Float] = {
-    var vector:Array[Float] = Array.ofDim(293);
+    var vector:Array[Float] = Array.ofDim(107);
     var index = 0;
     var stateString = (playerNumber + "," + state.recordGameStateWithDecision() + "," + decisionId).split(",");
     stateString.foreach(s => {

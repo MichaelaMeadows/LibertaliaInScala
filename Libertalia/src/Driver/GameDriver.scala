@@ -6,7 +6,8 @@ import Pirates.PirateState._
 import scala.util.Random
   object HelloWorld {
   val map = scala.collection.mutable.HashMap.empty[Int,Int];
-  val GAME_COUNT = 800;
+  var gameState:GameState = new GameState;
+  val GAME_COUNT = 2;
   def main(args: Array[String]): Unit = {
     var gameState:GameState = new GameState;
     //gameState.openStateRecording("BigOutput.csv");
@@ -28,8 +29,7 @@ import scala.util.Random
     var playDeck:List[Int] = (1 to 30).toList
     var sliceStop = 9;
     playDeck = Random.shuffle(playDeck);  
-    
-    var gameState:GameState = new GameState;
+    gameState.resetState();
     gameState.openStateRecording("RandomTest-"+iteration);
     
     innitPlayers(gameState, playDeck);

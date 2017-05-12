@@ -3,6 +3,7 @@ import Pirates.Pirate;
 import Pirates.PirateState._;
 import Driver.GameState;
 import Treasure.Treasure;
+import scala.util.Random
 
 class RandomPlayer(playerNumber:Int, isActivePlayer:Boolean) extends Player (playerNumber, isActivePlayer) {
   
@@ -17,7 +18,7 @@ class RandomPlayer(playerNumber:Int, isActivePlayer:Boolean) extends Player (pla
     
     var choice:Pirate = this.getPirateFromDeck(randomPirate);
     //choice.state = IN_PLAY;
-    state.recordDecision(playerNumber + "," + state.recordGameStateWithDecision() + "," + DecisionType.PIRATE.id + "," + choice.majorRank);
+   // state.recordDecision(playerNumber + "," + state.recordGameStateWithDecision() + "," + DecisionType.PIRATE.id + "," + choice.majorRank);
     return choice;
   }
   
@@ -29,11 +30,12 @@ class RandomPlayer(playerNumber:Int, isActivePlayer:Boolean) extends Player (pla
   }
   
   def chooseTreasure(state:GameState, possibleChoices:Array[Treasure], decisionPrompt:String):Int = {
-    //state.totalDecisions += 1;
+    var choices:List[Int] = Random.shuffle(((0 to (possibleChoices.size - 1)).toList));
     for (i <- 0 to (possibleChoices.size - 1)) {
-      if (possibleChoices(i) != null) {
-       // state.recordDecision(playerNumber + "," + state.recordGameStateWithDecision() + "," + DecisionType.TREASURE.id + "," + i);
-        return i;
+      var choice = choices(i);
+      if (possibleChoices(choice) != null) {
+        state.recordDecision(playerNumber + "," + state.recordGameStateWithDecision() + "," + DecisionType.TREASURE.id + "," + choice);
+        return choice;
       }
     }
     System.out.println("DISASTER!!!!!")

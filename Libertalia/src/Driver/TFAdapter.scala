@@ -8,7 +8,7 @@ import org.tensorflow.TensorFlow;
 import java.io._;
 
 class TFAdapter {
-  val trainedModel:SavedModelBundle = SavedModelBundle.load("C:/model/test/pirate_3", "serve");
+  val trainedModel:SavedModelBundle = SavedModelBundle.load("C:/model/test/treasure_1", "serve");
   val session:Session = trainedModel.session();
   val g:Graph = trainedModel.graph();
   
@@ -28,11 +28,11 @@ class TFAdapter {
 
 }
 
-object HelloTF {
+/*object HelloTF {
   def main(args: Array[String]): Unit = {
       var trainedModel:SavedModelBundle = SavedModelBundle.load("C:/model/test/pirate_1", "serve");
       var session:Session = trainedModel.session();
-      var matrix:Array[Array[Float]] = Array.ofDim[Float](2, 293);
+      var matrix:Array[Array[Float]] = Array.ofDim[Float](2, 107);
       matrix(0) = test2Value;
       matrix(1) = testValue;
       var input:Tensor = Tensor.create(matrix);
@@ -53,4 +53,4 @@ object HelloTF {
 ,0,0,13,12,0,5,0,4,0,0,1,0,0,4,5,0,5,0,1,5,1,0,0,1,0,0,0,0,5,4,1,0,5,3,6,6,4,5,3,0,0,0,0,0,0,31,14,0,4,0,5,0,0,1,0,0,5,5,0,4,0,3,5,3,0,0,1,0,0,0,0,5,3,1,0,5,1,0,0,3,3,1,0,0,0,0,0,0,0,29);
   
   private val test2Value:Array[Float] = Array(6,1,5,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,4,3,4,5,1,2,17,15,0,5,0,5,0,0,4,0,0,5,4,0,5,0,5,1,1,0,0,4,0,0,0,0,5,3,1,0,2,3,4,4,0,2,6,0,0,0,0,0,0,4,13,0,5,0,5,0,0,4,0,0,5,1,0,1,0,3,5,4,0,0,1,0,0,0,0,5,4,1,0,2,4,6,6,0,5,5,0,0,0,0,0,0,19,13,0,4,0,5,0,0,1,0,0,5,5,0,4,0,4,5,1,0,0,1,0,0,0,0,5,4,2,0,1,3,3,4,0,0,0,0,0,0,0,0,0,26,15,0,3,0,5,0,0,3,0,0,3,5,0,5,0,2,5,1,0,0,3,0,0,0,0,3,1,1,0,5,1,6,3,1,0,3,0,0,0,0,0,0,13,12,0,5,0,4,0,0,2,0,0,4,5,0,5,0,1,5,1,0,0,1,0,0,0,0,5,4,1,0,5,3,6,6,4,5,3,0,0,0,0,0,0,31,14,0,4,0,5,0,0,1,0,0,5,5,0,4,0,3,5,3,0,0,1,0,0,0,0,5,3,2,0,5,1,0,0,3,3,1,0,0,0,0,0,0,0,27);
-}
+}*/

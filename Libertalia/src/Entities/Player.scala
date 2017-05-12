@@ -74,10 +74,10 @@ abstract class Player(playerNumber:Int, isActivePlayer:Boolean) {
     
     // Intentionally not showing total score in the state.
     //buf.append(","+totalScore + "," + currentLoot);
-    buf.append("," + currentLoot);
+   // buf.append("," + currentLoot);
     //buf.append("Pirates");
    // buf.append("@Pirates@");
-    personalDeck.foreach(p => buf.append("," + p.state.id));
+   // personalDeck.foreach(p => buf.append("," + p.state.id));
     // Need to make treasure constant length... because of things like monkey and cook... the upper bound on length is actually quite large.
     //buf ++= "treasures";
    // buf.append("@Treasure@");
