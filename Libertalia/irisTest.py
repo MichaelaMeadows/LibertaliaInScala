@@ -55,7 +55,7 @@ def main():
 
   print(training_set.target)
   # Fit model.
-  classifier.fit(input_fn=get_train_inputs, steps=2000)
+  classifier.fit(input_fn=get_train_inputs, steps=2500)
   print(classifier.get_variable_names)
   tfrecord_serving_input_fn = tf.contrib.learn.build_parsing_serving_input_fn(layers.create_feature_spec_for_parsing(feature_columns))  
   #classifier.export_savedmodel(export_dir_base="pirateGraph/", serving_input_fn = tfrecord_serving_input_fn,as_text=True)
@@ -79,11 +79,11 @@ def main():
       [[2,1,5,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,4,3,4,5,1,2,17,15,0,5,0,5,0,0,4,0,0,5,4,0,5,0,5,1,1,0,0,4,0,0,0,0,5,3,1,0,2,3,4,4,0,2,6,0,0,0,0,0,0,4,13,0,5,0,5,0,0,4,0,0,5,1,0,1,0,3,5,4,0,0,1,0,0,0,0,5,4,1,0,2,4,6,6,0,5,5,0,0,0,0,0,0,19,13,0,4,0,5,0,0,1,0,0,5,5,0,4,0,4,5,1,0,0,1,0,0,0,0,5,4,1,0,1,3,3,4,0,0,0,0,0,0,0,0,0,26,15,0,3,0,5,0,0,3,0,0,3,5,0,5,0,1,5,1,0,0,3,0,0,0,0,3,1,1,0,5,1,6,3,1,0,3,0,0,0,0,0,0,13,12,0,5,0,4,0,0,1,0,0,4,5,0,5,0,1,5,1,0,0,1,0,0,0,0,5,4,1,0,5,3,6,6,4,5,3,0,0,0,0,0,0,31,14,0,4,0,5,0,0,1,0,0,5,5,0,4,0,3,5,3,0,0,1,0,0,0,0,5,3,1,0,5,1,0,0,3,3,1,0,0,0,0,0,0,0,29],
        [6,1,5,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,4,3,4,5,1,2,17,15,0,5,0,5,0,0,4,0,0,5,4,0,5,0,5,1,1,0,0,4,0,0,0,0,5,3,1,0,2,3,4,4,0,2,6,0,0,0,0,0,0,4,13,0,5,0,5,0,0,4,0,0,5,1,0,1,0,3,5,4,0,0,1,0,0,0,0,5,4,1,0,2,4,6,6,0,5,5,0,0,0,0,0,0,19,13,0,4,0,5,0,0,1,0,0,5,5,0,4,0,4,5,1,0,0,1,0,0,0,0,5,4,2,0,1,3,3,4,0,0,0,0,0,0,0,0,0,26,15,0,3,0,5,0,0,3,0,0,3,5,0,5,0,2,5,1,0,0,3,0,0,0,0,3,1,1,0,5,1,6,3,1,0,3,0,0,0,0,0,0,13,12,0,5,0,4,0,0,2,0,0,4,5,0,5,0,1,5,1,0,0,1,0,0,0,0,5,4,1,0,5,3,6,6,4,5,3,0,0,0,0,0,0,31,14,0,4,0,5,0,0,1,0,0,5,5,0,4,0,3,5,3,0,0,1,0,0,0,0,5,3,2,0,5,1,0,0,3,3,1,0,0,0,0,0,0,0,27]], dtype=np.int8)
 
-  predictions = list(classifier.predict_proba(input_fn=new_samples))
+  #predictions = list(classifier.predict_proba(input_fn=new_samples))
   #print (classifier.predict_scores(new_samples))
-  print(
-      "New Samples, Class Predictions:    {}\n"
-      .format(predictions))
+ # print(
+  #    "New Samples, Class Predictions:    {}\n"
+  #    .format(predictions))
   #saver = tf.train.Saver()
   #saver.save(sess, "/tmp/sessionSave")
   #classifier.export_savedmodel("/tmp/savedModelThing")  

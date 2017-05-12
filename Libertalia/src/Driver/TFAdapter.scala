@@ -8,7 +8,7 @@ import org.tensorflow.TensorFlow;
 import java.io._;
 
 class TFAdapter {
-  val trainedModel:SavedModelBundle = SavedModelBundle.load("C:/model/test/treasure_1", "serve");
+  val trainedModel:SavedModelBundle = SavedModelBundle.load("pirateModel/1494570236", "serve");
   val session:Session = trainedModel.session();
   val g:Graph = trainedModel.graph();
   

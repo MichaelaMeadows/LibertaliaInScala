@@ -8,14 +8,14 @@ class DNNPlayer(playerNumber:Int, isActivePlayer:Boolean) extends Player (player
   
   val r = scala.util.Random;
   
- /* def playCard(state:GameState):Pirate = {
+  def playCard(state:GameState):Pirate = {
     val piratesInHand = this.getCardsInState(HAND);
-    var currentStateMatrix:Array[Array[Float]] = Array.ofDim(piratesInHand.size, 293);
+    var currentStateMatrix:Array[Array[Float]] = Array.ofDim(piratesInHand.size, state.FEATURE_COUNT);
     var currentStateVector:Array[Float] = generateStateVector(state, DecisionType.PIRATE.id);
     
     for (x <- 0 to (piratesInHand.size -1)) {
       currentStateMatrix(x) = currentStateVector.clone();
-      currentStateMatrix(x)(292) = piratesInHand(x);
+      currentStateMatrix(x)(state.FEATURE_COUNT - 1 ) = piratesInHand(x);
     }
 
     var results = state.tfAdapter.getExpectedMoveValues(currentStateMatrix);
@@ -44,20 +44,20 @@ class DNNPlayer(playerNumber:Int, isActivePlayer:Boolean) extends Player (player
     }
     state.recordDecision(playerNumber + "," + state.recordGameStateWithDecision() + "," + DecisionType.PIRATE.id + "," + pirate.majorRank);
     return pirate;
-  }*/
-  
-  def playCard(state:GameState):Pirate = {
-    //state.totalDecisions += 1;
-    val piratesInHand = this.getCardsInState(HAND);
-
-    //System.out.println("Number of options:" + piratesInHand.size);
-    var randomPirate = piratesInHand(r.nextInt(piratesInHand.size));
-    
-    var choice:Pirate = this.getPirateFromDeck(randomPirate);
-    //choice.state = IN_PLAY;
-   // state.recordDecision(playerNumber + "," + state.recordGameStateWithDecision() + "," + DecisionType.PIRATE.id + "," + choice.majorRank);
-    return choice;
   }
+  
+//  def playCard(state:GameState):Pirate = {
+//    //state.totalDecisions += 1;
+//    val piratesInHand = this.getCardsInState(HAND);
+//
+//    //System.out.println("Number of options:" + piratesInHand.size);
+//    var randomPirate = piratesInHand(r.nextInt(piratesInHand.size));
+//    
+//    var choice:Pirate = this.getPirateFromDeck(randomPirate);
+//    //choice.state = IN_PLAY;
+//   // state.recordDecision(playerNumber + "," + state.recordGameStateWithDecision() + "," + DecisionType.PIRATE.id + "," + choice.majorRank);
+//    return choice;
+//  }
   
   def makeDecision(state:GameState, possibleChoices:List[Int], decisionPrompt:String, decisionType:Int):Int = {
     //state.totalDecisions += 1;
@@ -75,7 +75,7 @@ class DNNPlayer(playerNumber:Int, isActivePlayer:Boolean) extends Player (player
       }
     }
     
-    var currentStateMatrix:Array[Array[Float]] = Array.ofDim(validIndex.size, 107);
+    var currentStateMatrix:Array[Array[Float]] = Array.ofDim(validIndex.size, state.FEATURE_COUNT);
     var currentStateVector:Array[Float] = generateStateVector(state, DecisionType.PIRATE.id);
     
     for (x <- 0 to (validIndex.size -1)) {

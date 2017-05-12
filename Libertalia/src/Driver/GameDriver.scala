@@ -9,8 +9,8 @@ import java.io._;
   object HelloWorld {
   val map = scala.collection.mutable.HashMap.empty[Int,Int];
   var gameState:GameState = new GameState;
-  val TRAIN_COUNT = 300;
-  val TEST_COUNT = 100;
+  val TRAIN_COUNT = 800;
+  val TEST_COUNT = 200;
   val TRAIN_NAME = "TrainData-";
   val TRAIN_FINAL = "TrainingData";
   val TEST_NAME = "TestData-"
@@ -35,9 +35,7 @@ import java.io._;
     for (i <- 1 to TEST_COUNT) {
       runGame(i, TEST_NAME);
     }
-    map.foreach(p => {
-      System.out.println(p._1 + " won: " + (p._2/ TEST_COUNT.toFloat));
-    });
+
     concatFiles(TEST_FINAL, TEST_NAME, TEST_COUNT, globalDecisionCount)
 
   }
@@ -88,13 +86,13 @@ import java.io._;
       //System.out.println("Winner was: " + winner);
       gameState.closeFile(winner);
       globalDecisionCount += gameState.totalDecisions;
-    //System.out.println("Elampsed time in ms: " + (System.currentTimeMillis() - startTime))
-      
+    System.out.println("Elapsed time in ms: " + (System.currentTimeMillis() - startTime))
+     
   }
   
   def innitPlayers(gameState:GameState, playDeck:List[Int]) {
     var cards = playDeck.slice(0, 9);
-    addToPlayState(gameState, new RandomPlayer(1, true), cards);
+    addToPlayState(gameState, new DNNPlayer(1, true), cards);
     addToPlayState(gameState, new RandomPlayer(2, true), cards);
     addToPlayState(gameState, new RandomPlayer(3, true), cards);
     addToPlayState(gameState, new RandomPlayer(4, true), cards);
