@@ -80,7 +80,7 @@ class DNNPlayer(playerNumber:Int, isActivePlayer:Boolean) extends Player (player
     
     for (x <- 0 to (validIndex.size -1)) {
       currentStateMatrix(x) = currentStateVector.clone();
-      currentStateMatrix(x)(106) = validIndex(x);
+      currentStateMatrix(x)(state.FEATURE_COUNT - 1 ) = validIndex(x);
     }
 
     var results = state.tfAdapter.getExpectedMoveValues(currentStateMatrix);
@@ -99,7 +99,7 @@ class DNNPlayer(playerNumber:Int, isActivePlayer:Boolean) extends Player (player
   
   // This makes me feel bad becasue of how inefficient it is....  TODO TODO TODO
   def generateStateVector(state:GameState, decisionId:Int):Array[Float] = {
-    var vector:Array[Float] = Array.ofDim(107);
+    var vector:Array[Float] = Array.ofDim(state.FEATURE_COUNT);
     var index = 0;
     var stateString = (playerNumber + "," + state.recordGameStateWithDecision() + "," + decisionId).split(",");
     stateString.foreach(s => {

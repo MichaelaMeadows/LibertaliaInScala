@@ -15,6 +15,8 @@ import scala.util.Random;
 import java.io._;
 
 class GameState {
+  // Feature count does not include the annotation
+  var FEATURE_COUNT = 293;
   // Once populated, this is assumed to be ordered... should use a structure to enforce that, haha.
   // TODO Players shouldn't be able to read this... I'll just leave it be for now though.
   var cardsInPlay:List[Pirate] = List();

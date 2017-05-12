@@ -12,13 +12,8 @@ import tensorflow as tf
 tf.logging.set_verbosity(tf.logging.INFO)
 
 # Data sets
-#IRIS_TRAINING = "iris_training.csv"
-IRIS_TRAINING = "LibertaliaData/bigTrainFile1"
-IRIS_TRAINING_URL = "http://download.tensorflow.org/data/iris_training.csv"
-
-#IRIS_TEST = "iris_test.csv"
-IRIS_TEST = "LibertaliaData/bigTestFile1"
-IRIS_TEST_URL = "http://download.tensorflow.org/data/iris_test.csv"
+IRIS_TRAINING = "TrainingData"
+IRIS_TEST = "TestingData"
 
 def main():
   # If the training and test sets aren't stored locally, download them.
@@ -48,9 +43,9 @@ def main():
 
   # Build 3 layer DNN with 10, 20, 10 units respectively.
   classifier = tf.contrib.learn.DNNClassifier(feature_columns=feature_columns,
-                                              hidden_units=[20, 40, 20],
+                                              hidden_units=[80, 80],
                                               n_classes=2,
-                                              model_dir="/tmp/newNetwork")
+                                              model_dir="pirateGraph/")
   # Define the training inputs
   def get_train_inputs():
     x = tf.constant(training_set.data)
@@ -60,10 +55,10 @@ def main():
 
   print(training_set.target)
   # Fit model.
-  classifier.fit(input_fn=get_train_inputs, steps=7000)
+  classifier.fit(input_fn=get_train_inputs, steps=2000)
   print(classifier.get_variable_names)
   tfrecord_serving_input_fn = tf.contrib.learn.build_parsing_serving_input_fn(layers.create_feature_spec_for_parsing(feature_columns))  
-  #classifier.export_savedmodel(export_dir_base="/tmp/test", serving_input_fn = tfrecord_serving_input_fn,as_text=True)
+  #classifier.export_savedmodel(export_dir_base="pirateGraph/", serving_input_fn = tfrecord_serving_input_fn,as_text=True)
   
   # Define the test inputs
   def get_test_inputs():
@@ -92,7 +87,7 @@ def main():
   #saver = tf.train.Saver()
   #saver.save(sess, "/tmp/sessionSave")
   #classifier.export_savedmodel("/tmp/savedModelThing")  
-  classifier.export_savedmodel(export_dir_base="/tmp/test", serving_input_fn = tfrecord_serving_input_fn,as_text=True)
+  classifier.export_savedmodel(export_dir_base="pirateModel/", serving_input_fn = tfrecord_serving_input_fn,as_text=True)
 
 if __name__ == "__main__":
     main()
