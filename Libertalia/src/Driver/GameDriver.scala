@@ -86,13 +86,13 @@ import java.io._;
       //System.out.println("Winner was: " + winner);
       gameState.closeFile(winner);
       globalDecisionCount += gameState.totalDecisions;
-    System.out.println("Elapsed time in ms: " + (System.currentTimeMillis() - startTime))
+    //System.out.println("Elapsed time in ms: " + (System.currentTimeMillis() - startTime))
      
   }
   
   def innitPlayers(gameState:GameState, playDeck:List[Int]) {
     var cards = playDeck.slice(0, 9);
-    addToPlayState(gameState, new DNNPlayer(1, true), cards);
+    addToPlayState(gameState, new RandomPlayer(1, true), cards);
     addToPlayState(gameState, new RandomPlayer(2, true), cards);
     addToPlayState(gameState, new RandomPlayer(3, true), cards);
     addToPlayState(gameState, new RandomPlayer(4, true), cards);
